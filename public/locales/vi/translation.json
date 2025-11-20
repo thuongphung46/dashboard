@@ -1,0 +1,439 @@
+{
+  "app": {
+    "name": "Pyxis Admin"
+  },
+  "menu": {
+    "dashboard": "Bảng điều khiển",
+    "customers": "Quản lý khách hàng",
+    "database": "Quản lý cơ sở dữ liệu",
+    "version": "Quản lý phiên bản",
+    "licenses": "Quản lý giấy phép",
+    "activity_logs": "Nhật ký hoạt động",
+    "system_settings": "Cài đặt hệ thống"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm..."
+  },
+  "common": {
+    "back": "Quay lại",
+    "cancel": "Hủy",
+    "actions": "Hành động",
+    "view_details": "Xem chi tiết",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "customer": "Khách hàng",
+    "test_connection": "Kiểm tra kết nối",
+    "created_date": "Ngày tạo",
+    "status": "Trạng thái",
+    "connections": "Kết nối",
+    "license_key": "Mã giấy phép",
+    "start_date": "Ngày bắt đầu",
+    "expiration_date": "Ngày hết hạn",
+    "rows": "dòng",
+    "restore": "Khôi phục",
+    "backup": "Sao lưu"
+  },
+  "user": {
+    "default_name": "Người quản trị",
+    "logout": "Đăng xuất"
+  },
+  "login": {
+    "title": "Pyxis Admin",
+    "subtitle": "Đăng nhập vào bảng quản trị",
+    "email": "Email",
+    "email_placeholder": "ban@congty.com",
+    "password": "Mật khẩu",
+    "password_placeholder": "••••••••",
+    "remember": "Ghi nhớ đăng nhập",
+    "forgot": "Quên?",
+    "sign_in": "Đăng nhập",
+    "footer": "© {{year}} Pyxis — Bảng quản trị của bạn"
+  },
+  "system": {
+    "title": "Cài đặt hệ thống",
+    "description": "Cấu hình các cài đặt và tùy chọn hệ thống",
+    "tabs": {
+      "general": "Chung",
+      "email": "Email",
+      "notifications": "Thông báo",
+      "security": "Bảo mật"
+    },
+    "general_settings": "Cài đặt chung",
+    "basic_config": "Cấu hình hệ thống cơ bản",
+    "system_name": "Tên hệ thống",
+    "system_url": "URL hệ thống",
+    "timezone": "Múi giờ",
+    "default_language": "Ngôn ngữ mặc định",
+    "support_email": "Email hỗ trợ",
+    "maintenance_mode": "Chế độ bảo trì",
+    "maintenance_mode_desc": "Tạm thời vô hiệu hóa quyền truy cập hệ thống",
+    "session_settings": "Cài đặt phiên",
+    "session_description": "Cấu hình các tham số phiên người dùng",
+    "smtp_configuration": "Cấu hình SMTP",
+    "smtp_description": "Cấu hình máy chủ email",
+    "send_test_email": "Gửi email kiểm tra",
+    "email_templates": "Mẫu email",
+    "welcome_template_default": "Chào mừng đến với Pyxis Admin! Tài khoản của bạn đã được tạo thành công.",
+    "notification_preferences": "Tùy chọn thông báo",
+    "security_configuration": "Cấu hình bảo mật",
+    "save_settings": "Lưu cài đặt",
+    "changes_applied": "Các thay đổi sẽ được áp dụng ngay sau khi lưu",
+    "email_notifications": "Thông báo email"
+  },
+  "version": {
+    "title": "Quản lý phiên bản",
+    "description": "Quản lý phiên bản phần mềm và triển khai",
+    "latest_version": "Phiên bản mới nhất",
+    "up_to_date": "Cập nhật",
+    "pending_updates": "Đang chờ cập nhật",
+    "failed_updates": "Cập nhật thất bại",
+    "recent_releases": "Các bản phát hành gần đây",
+    "view_all_releases": "Xem tất cả bản phát hành",
+    "deployment_progress": "Tiến độ triển khai",
+    "customers": "khách hàng",
+    "deploy": "Triển khai",
+    "update": "Cập nhật",
+    "customer_version_status": "Trạng thái phiên bản khách hàng",
+    "current_version": "Phiên bản hiện tại",
+    "update_status": "Trạng thái cập nhật",
+    "last_updated": "Cập nhật lần cuối",
+    "actions": "Hành động"
+  },
+  "releaseNotes": {
+    "title": "Ghi chú phát hành",
+    "description": "Lịch sử phiên bản đầy đủ và nhật ký thay đổi",
+    "back": "Quay lại",
+    "highlights": "Điểm nổi bật",
+    "new_features": "Tính năng mới",
+    "improvements": "Cải tiến",
+    "bug_fixes": "Sửa lỗi",
+    "breaking_changes": "Thay đổi phá vỡ",
+    "latest": "Mới nhất"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "welcome": "Chào mừng trở lại! Đây là tình trạng hệ thống của bạn.",
+    "kpi": {
+      "total_customers": "Tổng số khách hàng",
+      "active_databases": "Cơ sở dữ liệu hoạt động",
+      "current_version": "Phiên bản hiện tại",
+      "active_licenses": "Giấy phép hoạt động"
+    },
+    "charts": {
+      "customer_database_growth": "Tăng trưởng khách hàng & cơ sở dữ liệu",
+      "monthly_growth": "Tăng trưởng hàng tháng trong 6 tháng qua",
+      "license_distribution": "Phân bố giấy phép",
+      "license_distribution_desc": "Giấy phép hoạt động theo loại gói",
+      "system_health": "Tình trạng hệ thống",
+      "system_health_desc": "Sử dụng tài nguyên trong 24 giờ qua",
+      "recent_activity": "Hoạt động gần đây",
+      "recent_activity_desc": "Sự kiện hệ thống mới nhất"
+    }
+  },
+  "customers": {
+    "title": "Quản lý khách hàng",
+    "description": "Quản lý tài khoản và thông tin khách hàng",
+    "add_customer": "Thêm khách hàng",
+    "search_placeholder": "Tìm theo tên, ID hoặc email...",
+    "filter_status_placeholder": "Lọc theo trạng thái",
+    "all_status": "Tất cả",
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "table": {
+      "name": "Tên khách hàng",
+      "id": "Mã khách hàng",
+      "contact": "Thông tin liên hệ",
+      "users": "Người dùng",
+      "status": "Trạng thái",
+      "created": "Ngày tạo",
+      "actions": "Hành động",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "showing": "Hiển thị {{count}} trong {{total}} khách hàng",
+      "previous": "Trước",
+      "next": "Tiếp"
+    },
+    "create": {
+      "title": "Tạo khách hàng mới",
+      "description": "Thêm một tài khoản khách hàng mới vào hệ thống",
+      "business_info": {
+        "title": "Thông tin doanh nghiệp",
+        "description": "Nhập thông tin doanh nghiệp của khách hàng"
+      },
+      "form": {
+        "company_name": "Tên công ty",
+        "company_placeholder": "Acme Corporation",
+        "domain": "Tên miền",
+        "domain_placeholder": "acme.com",
+        "customer_id": "Mã khách hàng",
+        "auto_generated": "Tự động tạo",
+        "contact_name": "Tên liên hệ",
+        "contact_name_placeholder": "John Doe",
+        "email": "Email",
+        "email_placeholder": "john@acme.com",
+        "service_package": "Gói dịch vụ",
+        "select_package": "Chọn gói",
+        "packages": {
+          "trial": "Dùng thử",
+          "professional": "Professional",
+          "enterprise": "Enterprise"
+        }
+      },
+      "contact": {
+        "title": "Thông tin liên hệ",
+        "description": "Thông tin liên hệ chính cho khách hàng này"
+      },
+      "service": {
+        "title": "Cấu hình dịch vụ",
+        "description": "Cấu hình cài đặt dịch vụ và giới hạn"
+      },
+      "logo": {
+        "title": "Logo công ty",
+        "description": "Tải lên logo của khách hàng",
+        "click_upload": "Nhấp để tải lên hoặc kéo thả",
+        "hints": "PNG, JPG tối đa 2MB"
+      },
+      "status": {
+        "title": "Trạng thái tài khoản",
+        "description": "Đặt trạng thái tài khoản ban đầu",
+        "active_label": "Trạng thái hoạt động",
+        "enable_desc": "Kích hoạt tài khoản khách hàng",
+        "current_status": "Trạng thái hiện tại",
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động"
+      },
+      "actions": {
+        "create": "Tạo khách hàng"
+      }
+    },
+    "detail": {
+      "id": "Mã khách hàng: {{id}}",
+
+      "business_info": {
+        "title": "Thông tin doanh nghiệp",
+        "description": "Chi tiết khách hàng và thông tin tài khoản"
+      },
+      "created": "Tạo lúc: {{date}}",
+      "status": "Trạng thái",
+      "service_package": "Gói dịch vụ",
+      "user_limit": "Giới hạn người dùng",
+      "storage_limit": "Giới hạn lưu trữ",
+      "tabs": {
+        "users": "Người dùng ({{count}})",
+        "activity_logs": "Nhật ký hoạt động"
+      },
+      "users": {
+        "title": "Quản lý người dùng",
+        "add": "Thêm người dùng",
+        "description": "Quản lý người dùng cho tài khoản khách hàng này"
+      },
+      "activity": {
+        "title": "Nhật ký hoạt động",
+        "description": "Hoạt động gần đây cho tài khoản khách hàng này"
+      }
+    },
+    "activity": {
+      "table": {
+        "action": "Hành động",
+        "user": "Người dùng",
+        "timestamp": "Thời gian",
+        "status": "Trạng thái"
+      }
+    }
+  },
+  "activity": {
+    "title": "Nhật ký hoạt động",
+    "description": "Giám sát hoạt động hệ thống và hành động người dùng",
+    "export_logs": "Xuất nhật ký",
+    "stats": {
+      "total_activities": "Tổng hoạt động",
+      "successful": "Thành công",
+      "failed": "Thất bại",
+      "today": "Hôm nay"
+    },
+    "search_placeholder": "Tìm theo hành động, người dùng, hoặc tài nguyên...",
+    "filters": {
+      "filter_by_type": "Lọc theo loại",
+      "filter_by_status": "Lọc theo trạng thái",
+      "all_types": "Tất cả loại",
+      "all_status": "Tất cả trạng thái",
+      "success": "Thành công",
+      "failed": "Thất bại",
+      "completed": "Hoàn thành"
+    },
+    "table": {
+      "timestamp": "Thời gian",
+      "type": "Loại",
+      "action": "Hành động",
+      "user": "Người dùng",
+      "resource": "Tài nguyên",
+      "status": "Trạng thái",
+      "ip": "Địa chỉ IP",
+      "showing": "Hiển thị {{count}} trong {{total}} hoạt động",
+      "previous": "Trước",
+      "next": "Tiếp"
+    }
+  },
+  "license": {
+    "title": "Quản lý giấy phép",
+    "description": "Quản lý giấy phép và đăng ký của khách hàng",
+    "create_license": "Tạo giấy phép",
+    "stats": {
+      "total_licenses": "Tổng giấy phép",
+      "active": "Hoạt động",
+      "trial": "Dùng thử",
+      "expired": "Hết hạn"
+    },
+    "search_placeholder": "Tìm theo khách hàng, mã giấy phép, hoặc ID...",
+    "filter_status_placeholder": "Lọc theo trạng thái",
+    "table": {
+      "expiration": "Hết hạn",
+
+      "modules": "Mô-đun",
+
+      "renew": "Gia hạn"
+    },
+    "create": {
+      "back": "Quay lại",
+      "title": "Tạo giấy phép mới",
+      "description": "Tạo một giấy phép mới cho khách hàng",
+      "customer": {
+        "title": "Thông tin khách hàng",
+        "description": "Chọn khách hàng cho giấy phép này",
+        "label": "Khách hàng",
+        "placeholder": "Chọn một khách hàng"
+      },
+      "configuration": {
+        "title": "Cấu hình giấy phép",
+        "description": "Đặt tham số và giới hạn cho giấy phép",
+        "license_placeholder": "Nhấn tạo để tạo mã giấy phép",
+        "generate": "Tạo",
+        "plan_type": "Loại gói",
+        "select_plan": "Chọn gói",
+        "plans": {
+          "trial": "Dùng thử (30 ngày)",
+          "professional": "Professional",
+          "enterprise": "Enterprise"
+        },
+        "duration": "Thời hạn (tháng)",
+        "duration_placeholder": "12"
+      },
+      "limits": {
+        "title": "Giới hạn tài nguyên",
+        "description": "Đặt giới hạn người dùng và lưu trữ",
+        "user_limit": "Giới hạn người dùng",
+        "user_limit_placeholder": "100",
+        "user_limit_help": "Số lượng người dùng tối đa",
+        "storage_limit": "Giới hạn lưu trữ (GB)",
+        "storage_limit_placeholder": "500",
+        "storage_limit_help": "Dung lượng lưu trữ tối đa (GB)"
+      },
+      "modules": {
+        "title": "Chọn mô-đun",
+        "description": "Chọn các mô-đun sẽ kích hoạt",
+        "required": "Bắt buộc"
+      },
+      "summary": {
+        "title": "Tóm tắt giấy phép",
+        "description": "Kiểm tra trước khi tạo",
+        "customer": "Khách hàng",
+        "plan_type": "Loại gói",
+        "selected_modules": "Mô-đun được chọn",
+        "module_label": "mô-đun",
+        "not_selected": "Chưa chọn",
+        "notice": "Giấy phép sẽ được tạo ngay lập tức và khách hàng sẽ nhận được email xác nhận."
+      },
+      "actions": {
+        "create": "Tạo giấy phép",
+        "cancel": "Hủy"
+      }
+    },
+    "detail": {
+      "id": "Mã giấy phép: {{id}}",
+      "edit": "$t(common.edit) giấy phép",
+      "renew": "Gia hạn giấy phép",
+      "days_remaining": "Số ngày còn lại",
+      "days": "ngày",
+      "storage": "Lưu trữ",
+      "info": {
+        "title": "Thông tin giấy phép",
+        "description": "Mã giấy phép và các chi tiết hiệu lực",
+        "plan_type": "Loại gói",
+        "customer_id": "Mã khách hàng"
+      },
+      "expires_soon": "Giấy phép sẽ hết hạn sau {{days}} ngày. Hãy cân nhắc gia hạn để tránh gián đoạn dịch vụ.",
+      "usage": {
+        "title": "Sử dụng tài nguyên",
+        "description": "Sử dụng hiện tại so với giới hạn giấy phép",
+        "user_accounts": "Tài khoản người dùng",
+        "storage_usage": "Sử dụng lưu trữ",
+        "active_modules": "Mô-đun đang hoạt động"
+      },
+      "modules": {
+        "title": "Kích hoạt mô-đun",
+        "description": "Bật hoặc tắt mô-đun giấy phép"
+      },
+      "enabled": "Đang bật",
+      "history": {
+        "title": "Lịch sử giấy phép",
+        "description": "Thay đổi và chỉnh sửa đối với giấy phép này"
+      }
+    }
+  },
+  "database": {
+    "title": "Quản lý cơ sở dữ liệu",
+    "description": "Quản lý cơ sở dữ liệu và cấu hình khách hàng",
+    "create_database": "Tạo cơ sở dữ liệu",
+    "stats": {
+      "total_databases": "Tổng số cơ sở dữ liệu",
+      "active_databases": "Cơ sở dữ liệu hoạt động",
+      "total_size": "Tổng dung lượng",
+      "connections": "Kết nối"
+    },
+    "search_placeholder": "Tìm theo tên cơ sở dữ liệu, khách hàng, hoặc ID...",
+    "table": {
+      "db_name": "Tên cơ sở dữ liệu",
+
+      "size": "Dung lượng",
+
+      "last_backup": "Sao lưu lần cuối",
+
+      "restore_backup": "Khôi phục sao lưu",
+      "create_new_database": "Tạo cơ sở dữ liệu mới",
+      "select_customer": "Chọn khách hàng",
+      "choose_customer": "Chọn một khách hàng",
+      "auto_generated": "Tự động tạo dựa trên khách hàng",
+      "create": "Tạo cơ sở dữ liệu"
+    },
+    "detail": {
+      "id": "Mã cơ sở dữ liệu: {{id}}",
+
+      "backup_now": "Sao lưu ngay",
+      "db_size": "Dung lượng cơ sở dữ liệu",
+
+      "version": "Phiên bản",
+      "connection": {
+        "title": "Thông tin kết nối",
+        "description": "Chi tiết kết nối cơ sở dữ liệu",
+        "host": "Host",
+        "port": "Cổng",
+        "db_name": "Tên cơ sở dữ liệu",
+        "connection_string": "Chuỗi kết nối"
+      },
+      "schema": {
+        "title": "Thông tin schema",
+        "description": "Bảng và dung lượng cơ sở dữ liệu"
+      },
+      "storage_trend": {
+        "title": "Xu hướng sử dụng lưu trữ",
+        "description": "Tăng trưởng kích thước cơ sở dữ liệu trong 6 tháng gần đây",
+        "size_label": "Dung lượng (GB)"
+      },
+      "backup": {
+        "title": "Lịch sử sao lưu",
+        "description": "Các lần sao lưu gần đây",
+        "size_label": "Dung lượng"
+      }
+    }
+  }
+}

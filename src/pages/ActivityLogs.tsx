@@ -1,158 +1,192 @@
-import { useState } from 'react';
-import { Search, Filter, Download, Calendar, User, Database, Key, Settings, GitBranch } from 'lucide-react';
-import { PageHeader } from '../components/PageHeader';
-import { StatusBadge } from '../components/StatusBadge';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Card, CardContent } from '../components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+/** @format */
+
+import { useState } from "react";
+import {
+  Search,
+  Filter,
+  Download,
+  Calendar,
+  User,
+  Database,
+  Key,
+  Settings,
+  GitBranch,
+} from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
+import { useTranslation } from "react-i18next";
+import { StatusBadge } from "../components/StatusBadge";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card, CardContent } from "../components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 
 const activityLogs = [
   {
     id: 1,
-    timestamp: '2024-06-19 14:30:25',
-    type: 'customer',
-    action: 'Customer Created',
-    user: 'admin@pyxis.com',
-    resource: 'Acme Corporation',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'New customer account created',
+    timestamp: "2024-06-19 14:30:25",
+    type: "customer",
+    action: "Customer Created",
+    user: "admin@pyxis.com",
+    resource: "Acme Corporation",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "New customer account created",
   },
   {
     id: 2,
-    timestamp: '2024-06-19 13:45:12',
-    type: 'database',
-    action: 'Database Backup',
-    user: 'system',
-    resource: 'acme_production',
-    status: 'success' as const,
-    ipAddress: '10.0.0.1',
-    details: 'Automated backup completed',
+    timestamp: "2024-06-19 13:45:12",
+    type: "database",
+    action: "Database Backup",
+    user: "system",
+    resource: "acme_production",
+    status: "success" as const,
+    ipAddress: "10.0.0.1",
+    details: "Automated backup completed",
   },
   {
     id: 3,
-    timestamp: '2024-06-19 12:15:33',
-    type: 'license',
-    action: 'License Renewed',
-    user: 'admin@pyxis.com',
-    resource: 'LIC-001',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'License extended for 12 months',
+    timestamp: "2024-06-19 12:15:33",
+    type: "license",
+    action: "License Renewed",
+    user: "admin@pyxis.com",
+    resource: "LIC-001",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "License extended for 12 months",
   },
   {
     id: 4,
-    timestamp: '2024-06-19 11:20:45',
-    type: 'version',
-    action: 'Version Update',
-    user: 'admin@pyxis.com',
-    resource: 'CloudSync Inc',
-    status: 'completed' as const,
-    ipAddress: '192.168.1.100',
-    details: 'Updated to version v4.2.1',
+    timestamp: "2024-06-19 11:20:45",
+    type: "version",
+    action: "Version Update",
+    user: "admin@pyxis.com",
+    resource: "CloudSync Inc",
+    status: "completed" as const,
+    ipAddress: "192.168.1.100",
+    details: "Updated to version v4.2.1",
   },
   {
     id: 5,
-    timestamp: '2024-06-19 10:05:18',
-    type: 'user',
-    action: 'User Login',
-    user: 'john.doe@acme.com',
-    resource: 'Dashboard',
-    status: 'success' as const,
-    ipAddress: '203.45.67.89',
-    details: 'Successful login',
+    timestamp: "2024-06-19 10:05:18",
+    type: "user",
+    action: "User Login",
+    user: "john.doe@acme.com",
+    resource: "Dashboard",
+    status: "success" as const,
+    ipAddress: "203.45.67.89",
+    details: "Successful login",
   },
   {
     id: 6,
-    timestamp: '2024-06-19 09:30:00',
-    type: 'database',
-    action: 'Database Connection Test',
-    user: 'admin@pyxis.com',
-    resource: 'techstart_main',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'Connection test successful',
+    timestamp: "2024-06-19 09:30:00",
+    type: "database",
+    action: "Database Connection Test",
+    user: "admin@pyxis.com",
+    resource: "techstart_main",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "Connection test successful",
   },
   {
     id: 7,
-    timestamp: '2024-06-19 08:45:22',
-    type: 'settings',
-    action: 'Settings Updated',
-    user: 'admin@pyxis.com',
-    resource: 'System Configuration',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'Email settings modified',
+    timestamp: "2024-06-19 08:45:22",
+    type: "settings",
+    action: "Settings Updated",
+    user: "admin@pyxis.com",
+    resource: "System Configuration",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "Email settings modified",
   },
   {
     id: 8,
-    timestamp: '2024-06-19 07:12:55',
-    type: 'user',
-    action: 'Failed Login Attempt',
-    user: 'unknown@test.com',
-    resource: 'Dashboard',
-    status: 'failed' as const,
-    ipAddress: '45.67.89.123',
-    details: 'Invalid credentials',
+    timestamp: "2024-06-19 07:12:55",
+    type: "user",
+    action: "Failed Login Attempt",
+    user: "unknown@test.com",
+    resource: "Dashboard",
+    status: "failed" as const,
+    ipAddress: "45.67.89.123",
+    details: "Invalid credentials",
   },
   {
     id: 9,
-    timestamp: '2024-06-18 16:30:10',
-    type: 'license',
-    action: 'Module Activated',
-    user: 'admin@pyxis.com',
-    resource: 'LIC-004',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'Analytics module enabled',
+    timestamp: "2024-06-18 16:30:10",
+    type: "license",
+    action: "Module Activated",
+    user: "admin@pyxis.com",
+    resource: "LIC-004",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "Analytics module enabled",
   },
   {
     id: 10,
-    timestamp: '2024-06-18 15:20:44',
-    type: 'customer',
-    action: 'Customer Updated',
-    user: 'admin@pyxis.com',
-    resource: 'TechStart Inc',
-    status: 'success' as const,
-    ipAddress: '192.168.1.100',
-    details: 'Contact information updated',
+    timestamp: "2024-06-18 15:20:44",
+    type: "customer",
+    action: "Customer Updated",
+    user: "admin@pyxis.com",
+    resource: "TechStart Inc",
+    status: "success" as const,
+    ipAddress: "192.168.1.100",
+    details: "Contact information updated",
   },
 ];
 
 const getActivityIcon = (type: string) => {
   switch (type) {
-    case 'customer': return User;
-    case 'database': return Database;
-    case 'license': return Key;
-    case 'version': return GitBranch;
-    case 'settings': return Settings;
-    default: return User;
+    case "customer":
+      return User;
+    case "database":
+      return Database;
+    case "license":
+      return Key;
+    case "version":
+      return GitBranch;
+    case "settings":
+      return Settings;
+    default:
+      return User;
   }
 };
 
 export function ActivityLogs() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [typeFilter, setTypeFilter] = useState('all');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const { t } = useTranslation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const filteredLogs = activityLogs.filter((log) => {
-    const matchesSearch = log.action.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         log.user.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         log.resource.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = typeFilter === 'all' || log.type === typeFilter;
-    const matchesStatus = statusFilter === 'all' || log.status === statusFilter;
+    const matchesSearch =
+      log.action.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      log.user.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      log.resource.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesType = typeFilter === "all" || log.type === typeFilter;
+    const matchesStatus = statusFilter === "all" || log.status === statusFilter;
     return matchesSearch && matchesType && matchesStatus;
   });
 
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Activity Logs"
-        description="Monitor system activities and user actions"
+        title={t("activity.title")}
+        description={t("activity.description")}
         action={{
-          label: 'Export Logs',
+          label: t("activity.export_logs"),
           onClick: () => {},
           icon: <Download className="w-4 h-4 mr-2" />,
         }}
@@ -162,31 +196,44 @@ export function ActivityLogs() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card className="border-gray-200 shadow-sm">
           <CardContent className="p-6">
-            <p className="text-gray-600 text-sm">Total Activities</p>
+            <p className="text-gray-600 text-sm">
+              {t("activity.stats.total_activities")}
+            </p>
             <p className="text-gray-900 mt-1">{activityLogs.length}</p>
           </CardContent>
         </Card>
         <Card className="border-gray-200 shadow-sm">
           <CardContent className="p-6">
-            <p className="text-gray-600 text-sm">Successful</p>
+            <p className="text-gray-600 text-sm">
+              {t("activity.stats.successful")}
+            </p>
             <p className="text-gray-900 mt-1">
-              {activityLogs.filter(l => l.status === 'success' || l.status === 'completed').length}
+              {
+                activityLogs.filter(
+                  (l) => l.status === "success" || l.status === "completed"
+                ).length
+              }
             </p>
           </CardContent>
         </Card>
         <Card className="border-gray-200 shadow-sm">
           <CardContent className="p-6">
-            <p className="text-gray-600 text-sm">Failed</p>
+            <p className="text-gray-600 text-sm">
+              {t("activity.stats.failed")}
+            </p>
             <p className="text-gray-900 mt-1">
-              {activityLogs.filter(l => l.status === 'failed').length}
+              {activityLogs.filter((l) => l.status === "failed").length}
             </p>
           </CardContent>
         </Card>
         <Card className="border-gray-200 shadow-sm">
           <CardContent className="p-6">
-            <p className="text-gray-600 text-sm">Today</p>
+            <p className="text-gray-600 text-sm">{t("activity.stats.today")}</p>
             <p className="text-gray-900 mt-1">
-              {activityLogs.filter(l => l.timestamp.startsWith('2024-06-19')).length}
+              {
+                activityLogs.filter((l) => l.timestamp.startsWith("2024-06-19"))
+                  .length
+              }
             </p>
           </CardContent>
         </Card>
@@ -199,7 +246,7 @@ export function ActivityLogs() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
-                placeholder="Search by action, user, or resource..."
+                placeholder={t("activity.search_placeholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -207,10 +254,14 @@ export function ActivityLogs() {
             </div>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Filter by type" />
+                <SelectValue
+                  placeholder={t("activity.filters.filter_by_type")}
+                />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="all">
+                  {t("activity.filters.all_types")}
+                </SelectItem>
                 <SelectItem value="customer">Customer</SelectItem>
                 <SelectItem value="database">Database</SelectItem>
                 <SelectItem value="license">License</SelectItem>
@@ -221,13 +272,23 @@ export function ActivityLogs() {
             </Select>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Filter by status" />
+                <SelectValue
+                  placeholder={t("activity.filters.filter_by_status")}
+                />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="success">Success</SelectItem>
-                <SelectItem value="failed">Failed</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
+                <SelectItem value="all">
+                  {t("activity.filters.all_status")}
+                </SelectItem>
+                <SelectItem value="success">
+                  {t("activity.filters.success")}
+                </SelectItem>
+                <SelectItem value="failed">
+                  {t("activity.filters.failed")}
+                </SelectItem>
+                <SelectItem value="completed">
+                  {t("activity.filters.completed")}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -241,13 +302,13 @@ export function ActivityLogs() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Timestamp</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Action</TableHead>
-                  <TableHead>User</TableHead>
-                  <TableHead>Resource</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>IP Address</TableHead>
+                  <TableHead>{t("activity.table.timestamp")}</TableHead>
+                  <TableHead>{t("activity.table.type")}</TableHead>
+                  <TableHead>{t("activity.table.action")}</TableHead>
+                  <TableHead>{t("activity.table.user")}</TableHead>
+                  <TableHead>{t("activity.table.resource")}</TableHead>
+                  <TableHead>{t("common.status")}</TableHead>
+                  <TableHead>{t("activity.table.ip")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -266,7 +327,9 @@ export function ActivityLogs() {
                           <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
                             <Icon className="w-4 h-4 text-blue-600" />
                           </div>
-                          <span className="text-gray-900 capitalize">{log.type}</span>
+                          <span className="text-gray-900 capitalize">
+                            {log.type}
+                          </span>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -275,8 +338,12 @@ export function ActivityLogs() {
                           <p className="text-gray-500 text-sm">{log.details}</p>
                         </div>
                       </TableCell>
-                      <TableCell className="text-gray-600">{log.user}</TableCell>
-                      <TableCell className="text-gray-900">{log.resource}</TableCell>
+                      <TableCell className="text-gray-600">
+                        {log.user}
+                      </TableCell>
+                      <TableCell className="text-gray-900">
+                        {log.resource}
+                      </TableCell>
                       <TableCell>
                         <StatusBadge status={log.status} />
                       </TableCell>
@@ -294,10 +361,19 @@ export function ActivityLogs() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between text-sm text-gray-600">
-        <p>Showing {filteredLogs.length} of {activityLogs.length} activities</p>
+        <p>
+          {t("activity.table.showing", {
+            count: filteredLogs.length,
+            total: activityLogs.length,
+          })}
+        </p>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled>Previous</Button>
-          <Button variant="outline" size="sm">Next</Button>
+          <Button variant="outline" size="sm" disabled>
+            {t("activity.table.previous")}
+          </Button>
+          <Button variant="outline" size="sm">
+            {t("activity.table.next")}
+          </Button>
         </div>
       </div>
     </div>

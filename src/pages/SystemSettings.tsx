@@ -1,16 +1,37 @@
-import { useState } from 'react';
-import { Save, Mail, Bell, Shield, Database, Globe, Clock } from 'lucide-react';
-import { PageHeader } from '../components/PageHeader';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { Switch } from '../components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Textarea } from '../components/ui/textarea';
+/** @format */
+
+import { useState } from "react";
+import { Save, Mail, Bell, Shield, Database, Globe, Clock } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Switch } from "../components/ui/switch";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import { Textarea } from "../components/ui/textarea";
+import { useTranslation } from "react-i18next";
 
 export function SystemSettings() {
+  const { t } = useTranslation();
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(true);
   const [twoFactorAuth, setTwoFactorAuth] = useState(false);
@@ -19,37 +40,37 @@ export function SystemSettings() {
 
   const handleSave = () => {
     // Handle save settings
-    console.log('Settings saved');
+    console.log("Settings saved");
   };
 
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="System Settings"
-        description="Configure system-wide settings and preferences"
+        title={t("system.title")}
+        description={t("system.description")}
       />
 
       <Tabs defaultValue="general" className="space-y-6">
         <TabsList>
           <TabsTrigger value="general">
             <Globe className="w-4 h-4 mr-2" />
-            General
+            {t("system.tabs.general")}
           </TabsTrigger>
           <TabsTrigger value="email">
             <Mail className="w-4 h-4 mr-2" />
-            Email
+            {t("system.tabs.email")}
           </TabsTrigger>
           <TabsTrigger value="notifications">
             <Bell className="w-4 h-4 mr-2" />
-            Notifications
+            {t("system.tabs.notifications")}
           </TabsTrigger>
           <TabsTrigger value="security">
             <Shield className="w-4 h-4 mr-2" />
-            Security
+            {t("system.tabs.security")}
           </TabsTrigger>
           <TabsTrigger value="backup">
             <Database className="w-4 h-4 mr-2" />
-            Backup
+            {t("common.backup")}
           </TabsTrigger>
         </TabsList>
 
@@ -57,24 +78,27 @@ export function SystemSettings() {
         <TabsContent value="general" className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>General Settings</CardTitle>
-              <CardDescription>Basic system configuration</CardDescription>
+              <CardTitle>{t("system.general_settings")}</CardTitle>
+              <CardDescription>{t("system.basic_config")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="systemName">System Name</Label>
-                  <Input id="systemName" defaultValue="Pyxis Admin" />
+                  <Label htmlFor="systemName">{t("system.system_name")}</Label>
+                  <Input id="systemName" defaultValue={t("app.name")} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="systemUrl">System URL</Label>
-                  <Input id="systemUrl" defaultValue="https://admin.pyxis.com" />
+                  <Label htmlFor="systemUrl">{t("system.system_url")}</Label>
+                  <Input
+                    id="systemUrl"
+                    defaultValue="https://admin.pyxis.com"
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="timezone">Timezone</Label>
+                  <Label htmlFor="timezone">{t("system.timezone")}</Label>
                   <Select defaultValue="utc">
                     <SelectTrigger id="timezone">
                       <SelectValue />
@@ -83,12 +107,16 @@ export function SystemSettings() {
                       <SelectItem value="utc">UTC (GMT+0)</SelectItem>
                       <SelectItem value="est">Eastern Time (GMT-5)</SelectItem>
                       <SelectItem value="pst">Pacific Time (GMT-8)</SelectItem>
-                      <SelectItem value="cet">Central European Time (GMT+1)</SelectItem>
+                      <SelectItem value="cet">
+                        Central European Time (GMT+1)
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="language">Default Language</Label>
+                  <Label htmlFor="language">
+                    {t("system.default_language")}
+                  </Label>
                   <Select defaultValue="en">
                     <SelectTrigger id="language">
                       <SelectValue />
@@ -104,29 +132,46 @@ export function SystemSettings() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="supportEmail">Support Email</Label>
-                <Input id="supportEmail" type="email" defaultValue="support@pyxis.com" />
+                <Label htmlFor="supportEmail">
+                  {t("system.support_email")}
+                </Label>
+                <Input
+                  id="supportEmail"
+                  type="email"
+                  defaultValue="support@pyxis.com"
+                />
               </div>
 
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                 <div>
-                  <p className="text-gray-900">Maintenance Mode</p>
-                  <p className="text-gray-600 text-sm">Temporarily disable system access</p>
+                  <p className="text-gray-900">
+                    {t("system.maintenance_mode")}
+                  </p>
+                  <p className="text-gray-600 text-sm">
+                    {t("system.maintenance_mode_desc")}
+                  </p>
                 </div>
-                <Switch checked={maintenanceMode} onCheckedChange={setMaintenanceMode} />
+                <Switch
+                  checked={maintenanceMode}
+                  onCheckedChange={setMaintenanceMode}
+                />
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>Session Settings</CardTitle>
-              <CardDescription>Configure user session parameters</CardDescription>
+              <CardTitle>{t("system.session_settings")}</CardTitle>
+              <CardDescription>
+                {t("system.session_description")}
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
+                  <Label htmlFor="sessionTimeout">
+                    Session Timeout (minutes)
+                  </Label>
                   <Input id="sessionTimeout" type="number" defaultValue="30" />
                 </div>
                 <div className="space-y-2">
@@ -142,8 +187,8 @@ export function SystemSettings() {
         <TabsContent value="email" className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>SMTP Configuration</CardTitle>
-              <CardDescription>Configure email server settings</CardDescription>
+              <CardTitle>{t("system.smtp_configuration")}</CardTitle>
+              <CardDescription>{t("system.smtp_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -164,13 +209,21 @@ export function SystemSettings() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="smtpPassword">SMTP Password</Label>
-                  <Input id="smtpPassword" type="password" placeholder="••••••••" />
+                  <Input
+                    id="smtpPassword"
+                    type="password"
+                    placeholder="••••••••"
+                  />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="fromEmail">From Email Address</Label>
-                <Input id="fromEmail" type="email" defaultValue="noreply@pyxis.com" />
+                <Input
+                  id="fromEmail"
+                  type="email"
+                  defaultValue="noreply@pyxis.com"
+                />
               </div>
 
               <div className="space-y-2">
@@ -180,23 +233,25 @@ export function SystemSettings() {
 
               <Button variant="outline">
                 <Mail className="w-4 h-4 mr-2" />
-                Send Test Email
+                {t("system.send_test_email")}
               </Button>
             </CardContent>
           </Card>
 
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>Email Templates</CardTitle>
-              <CardDescription>Customize email notification templates</CardDescription>
+              <CardTitle>{t("system.email_templates")}</CardTitle>
+              <CardDescription>{t("system.smtp_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="welcomeTemplate">Welcome Email Template</Label>
-                <Textarea 
-                  id="welcomeTemplate" 
+                <Label htmlFor="welcomeTemplate">
+                  {t("system.email_templates")}
+                </Label>
+                <Textarea
+                  id="welcomeTemplate"
                   rows={4}
-                  defaultValue="Welcome to Pyxis Admin! Your account has been created successfully."
+                  defaultValue={t("system.welcome_template_default")}
                 />
               </div>
             </CardContent>
@@ -207,43 +262,80 @@ export function SystemSettings() {
         <TabsContent value="notifications" className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>Notification Preferences</CardTitle>
-              <CardDescription>Configure system notifications</CardDescription>
+              <CardTitle>{t("system.notification_preferences")}</CardTitle>
+              <CardDescription>{t("system.smtp_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                 <div>
-                  <p className="text-gray-900">Email Notifications</p>
-                  <p className="text-gray-600 text-sm">Receive notifications via email</p>
+                  <p className="text-gray-900">
+                    {t("system.email_notifications") || "Email Notifications"}
+                  </p>
+                  <p className="text-gray-600 text-sm">
+                    {t("system.receive_via_email") ||
+                      "Receive notifications via email"}
+                  </p>
                 </div>
-                <Switch checked={emailNotifications} onCheckedChange={setEmailNotifications} />
+                <Switch
+                  checked={emailNotifications}
+                  onCheckedChange={setEmailNotifications}
+                />
               </div>
 
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                 <div>
                   <p className="text-gray-900">Push Notifications</p>
-                  <p className="text-gray-600 text-sm">Receive browser push notifications</p>
+                  <p className="text-gray-600 text-sm">
+                    Receive browser push notifications
+                  </p>
                 </div>
-                <Switch checked={pushNotifications} onCheckedChange={setPushNotifications} />
+                <Switch
+                  checked={pushNotifications}
+                  onCheckedChange={setPushNotifications}
+                />
               </div>
 
               <div className="space-y-3 pt-4 border-t">
                 <p className="text-gray-900">Notification Events</p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <input type="checkbox" id="notifyCustomer" defaultChecked className="rounded" />
-                    <Label htmlFor="notifyCustomer">New customer registration</Label>
+                    <input
+                      type="checkbox"
+                      id="notifyCustomer"
+                      defaultChecked
+                      className="rounded"
+                    />
+                    <Label htmlFor="notifyCustomer">
+                      New customer registration
+                    </Label>
                   </div>
                   <div className="flex items-center gap-3">
-                    <input type="checkbox" id="notifyLicense" defaultChecked className="rounded" />
-                    <Label htmlFor="notifyLicense">License expiration warnings</Label>
+                    <input
+                      type="checkbox"
+                      id="notifyLicense"
+                      defaultChecked
+                      className="rounded"
+                    />
+                    <Label htmlFor="notifyLicense">
+                      License expiration warnings
+                    </Label>
                   </div>
                   <div className="flex items-center gap-3">
-                    <input type="checkbox" id="notifyBackup" defaultChecked className="rounded" />
+                    <input
+                      type="checkbox"
+                      id="notifyBackup"
+                      defaultChecked
+                      className="rounded"
+                    />
                     <Label htmlFor="notifyBackup">Backup completion</Label>
                   </div>
                   <div className="flex items-center gap-3">
-                    <input type="checkbox" id="notifyFailure" defaultChecked className="rounded" />
+                    <input
+                      type="checkbox"
+                      id="notifyFailure"
+                      defaultChecked
+                      className="rounded"
+                    />
                     <Label htmlFor="notifyFailure">System failures</Label>
                   </div>
                 </div>
@@ -256,22 +348,34 @@ export function SystemSettings() {
         <TabsContent value="security" className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>Security Configuration</CardTitle>
-              <CardDescription>Manage security and access control</CardDescription>
+              <CardTitle>{t("system.security_configuration")}</CardTitle>
+              <CardDescription>{t("system.smtp_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                 <div>
                   <p className="text-gray-900">Two-Factor Authentication</p>
-                  <p className="text-gray-600 text-sm">Require 2FA for admin users</p>
+                  <p className="text-gray-600 text-sm">
+                    {t("system.two_factor_desc") ||
+                      "Require 2FA for admin users"}
+                  </p>
                 </div>
-                <Switch checked={twoFactorAuth} onCheckedChange={setTwoFactorAuth} />
+                <Switch
+                  checked={twoFactorAuth}
+                  onCheckedChange={setTwoFactorAuth}
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="passwordMinLength">Minimum Password Length</Label>
-                  <Input id="passwordMinLength" type="number" defaultValue="8" />
+                  <Label htmlFor="passwordMinLength">
+                    Minimum Password Length
+                  </Label>
+                  <Input
+                    id="passwordMinLength"
+                    type="number"
+                    defaultValue="8"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="passwordExpiry">Password Expiry (days)</Label>
@@ -281,12 +385,14 @@ export function SystemSettings() {
 
               <div className="space-y-2">
                 <Label htmlFor="ipWhitelist">IP Whitelist</Label>
-                <Textarea 
-                  id="ipWhitelist" 
+                <Textarea
+                  id="ipWhitelist"
                   rows={3}
                   placeholder="Enter IP addresses (one per line)"
                 />
-                <p className="text-xs text-gray-500">Leave empty to allow all IPs</p>
+                <p className="text-xs text-gray-500">
+                  Leave empty to allow all IPs
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -301,14 +407,18 @@ export function SystemSettings() {
         <TabsContent value="backup" className="space-y-6">
           <Card className="border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle>Backup Configuration</CardTitle>
-              <CardDescription>Configure automated backup settings</CardDescription>
+              <CardTitle>
+                {t("system.backup_configuration") || "Backup Configuration"}
+              </CardTitle>
+              <CardDescription>{t("system.smtp_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                 <div>
                   <p className="text-gray-900">Automatic Backups</p>
-                  <p className="text-gray-600 text-sm">Enable scheduled database backups</p>
+                  <p className="text-gray-600 text-sm">
+                    Enable scheduled database backups
+                  </p>
                 </div>
                 <Switch checked={autoBackup} onCheckedChange={setAutoBackup} />
               </div>
@@ -337,7 +447,9 @@ export function SystemSettings() {
               <div className="space-y-2">
                 <Label htmlFor="backupRetention">Retention Period (days)</Label>
                 <Input id="backupRetention" type="number" defaultValue="30" />
-                <p className="text-xs text-gray-500">Backups older than this will be deleted</p>
+                <p className="text-xs text-gray-500">
+                  Backups older than this will be deleted
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -347,7 +459,7 @@ export function SystemSettings() {
 
               <Button variant="outline">
                 <Database className="w-4 h-4 mr-2" />
-                Run Backup Now
+                {t("system.run_backup") || "Run Backup Now"}
               </Button>
             </CardContent>
           </Card>
@@ -357,12 +469,13 @@ export function SystemSettings() {
       {/* Save Button */}
       <Card className="border-gray-200 shadow-sm">
         <CardContent className="p-4 flex items-center justify-between">
-          <p className="text-gray-600 text-sm">
-            Changes will be applied immediately after saving
-          </p>
-          <Button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700">
+          <p className="text-gray-600 text-sm">{t("system.changes_applied")}</p>
+          <Button
+            onClick={handleSave}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
             <Save className="w-4 h-4 mr-2" />
-            Save Settings
+            {t("system.save_settings")}
           </Button>
         </CardContent>
       </Card>

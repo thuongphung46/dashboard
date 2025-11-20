@@ -20,6 +20,8 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -31,19 +33,20 @@ interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Users, label: "Customer Management", path: "/customers" },
-  { icon: Database, label: "Database Management", path: "/database" },
-  { icon: GitBranch, label: "Version Control", path: "/version" },
-  { icon: Key, label: "License Management", path: "/licenses" },
-  { icon: Activity, label: "Activity Logs", path: "/activity-logs" },
-  { icon: Settings, label: "System Settings", path: "/settings" },
+const menuItems = (t: (s: string) => string) => [
+  { icon: LayoutDashboard, label: t("menu.dashboard"), path: "/dashboard" },
+  { icon: Users, label: t("menu.customers"), path: "/customers" },
+  { icon: Database, label: t("menu.database"), path: "/database" },
+  { icon: GitBranch, label: t("menu.version"), path: "/version" },
+  { icon: Key, label: t("menu.licenses"), path: "/licenses" },
+  { icon: Activity, label: t("menu.activity_logs"), path: "/activity-logs" },
+  { icon: Settings, label: t("menu.system_settings"), path: "/settings" },
 ];
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useTranslation();
 
   const isActive = (path: string) => {
     if (path === "/dashboard") return location.pathname === path;
@@ -70,7 +73,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white">P</span>
               </div>
-              <span className="tracking-tight">Pyxis Admin</span>
+              <span className="tracking-tight">{t("app.name")}</span>
             </div>
             <Button
               variant="ghost"
@@ -85,7 +88,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 overflow-y-auto">
             <ul className="space-y-1">
-              {menuItems.map((item) => {
+              {menuItems(t).map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.path);
 
@@ -131,7 +134,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="relative max-w-md w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
-                placeholder="Search..."
+                placeholder={t("search.placeholder")}
                 className="pl-10 bg-gray-50 border-gray-200"
               />
             </div>
@@ -161,7 +164,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     </Avatar>
                     <div className="hidden md:block text-left">
                       <p className="text-gray-900">
-                        {user?.name ?? "Admin User"}
+                        {user?.name ?? t("user.default_name")}
                       </p>
                       <p className="text-gray-500 text-sm">
                         {user?.email ?? "admin@pyxis.com"}
@@ -178,8 +181,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                       navigate("/login");
                     }}
                   >
-                    Logout
+                    {t("user.logout")}
                   </DropdownMenuItem>
+
+                  <div className="px-3 py-2">
+                    <div className="text-xs text-gray-500 mb-1">
+                      {t("system.default_language")}
+                    </div>
+                    <LanguageSwitcher />
+                  </div>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

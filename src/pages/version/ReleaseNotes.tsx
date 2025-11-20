@@ -1,135 +1,143 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp, Calendar, Tag } from 'lucide-react';
-import { Button } from '../../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
-import { StatusBadge } from '../../components/StatusBadge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion';
+/** @format */
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ChevronDown, ChevronUp, Calendar, Tag } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Button } from "../../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { StatusBadge } from "../../components/StatusBadge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../components/ui/accordion";
 
 const releases = [
   {
-    version: 'v4.2.1',
-    date: '2024-06-16',
-    type: 'Patch',
-    status: 'latest',
+    version: "v4.2.1",
+    date: "2024-06-16",
+    type: "Patch",
+    status: "latest",
     highlights: [
-      'Critical security patch for authentication module',
-      'Performance improvements for database queries',
-      'Fixed memory leak in background tasks',
+      "Critical security patch for authentication module",
+      "Performance improvements for database queries",
+      "Fixed memory leak in background tasks",
     ],
     features: [],
     improvements: [
-      'Optimized API response times by 25%',
-      'Reduced memory usage in worker processes',
-      'Enhanced error logging and debugging capabilities',
+      "Optimized API response times by 25%",
+      "Reduced memory usage in worker processes",
+      "Enhanced error logging and debugging capabilities",
     ],
     bugFixes: [
-      'Fixed issue with session timeout on mobile devices',
-      'Resolved data export errors for large datasets',
-      'Corrected timezone handling in activity logs',
+      "Fixed issue with session timeout on mobile devices",
+      "Resolved data export errors for large datasets",
+      "Corrected timezone handling in activity logs",
     ],
     breaking: [],
   },
   {
-    version: 'v4.2.0',
-    date: '2024-06-01',
-    type: 'Minor',
-    status: 'stable',
+    version: "v4.2.0",
+    date: "2024-06-01",
+    type: "Minor",
+    status: "stable",
     highlights: [
-      'New customizable dashboard widgets',
-      'Advanced filtering options for reports',
-      'Enhanced API documentation',
+      "New customizable dashboard widgets",
+      "Advanced filtering options for reports",
+      "Enhanced API documentation",
     ],
     features: [
-      'Customizable dashboard widgets with drag-and-drop interface',
-      'New advanced filtering system for all data tables',
-      'Real-time collaboration features for team workspaces',
-      'API rate limiting and throttling controls',
-      'Webhook support for external integrations',
+      "Customizable dashboard widgets with drag-and-drop interface",
+      "New advanced filtering system for all data tables",
+      "Real-time collaboration features for team workspaces",
+      "API rate limiting and throttling controls",
+      "Webhook support for external integrations",
     ],
     improvements: [
-      'Redesigned user settings interface',
-      'Improved mobile responsiveness across all pages',
-      'Enhanced search functionality with fuzzy matching',
+      "Redesigned user settings interface",
+      "Improved mobile responsiveness across all pages",
+      "Enhanced search functionality with fuzzy matching",
     ],
     bugFixes: [
-      'Fixed notification delivery issues',
-      'Resolved calendar sync problems',
-      'Corrected permission inheritance for nested resources',
+      "Fixed notification delivery issues",
+      "Resolved calendar sync problems",
+      "Corrected permission inheritance for nested resources",
     ],
     breaking: [
-      'API endpoint /v1/users renamed to /v2/users',
-      'Deprecated old authentication method (use OAuth 2.0)',
+      "API endpoint /v1/users renamed to /v2/users",
+      "Deprecated old authentication method (use OAuth 2.0)",
     ],
   },
   {
-    version: 'v4.1.5',
-    date: '2024-05-15',
-    type: 'Patch',
-    status: 'stable',
-    highlights: [
-      'Bug fixes and stability improvements',
-      'Security updates',
-    ],
+    version: "v4.1.5",
+    date: "2024-05-15",
+    type: "Patch",
+    status: "stable",
+    highlights: ["Bug fixes and stability improvements", "Security updates"],
     features: [],
     improvements: [
-      'Enhanced data validation on form inputs',
-      'Improved error messages for better user guidance',
+      "Enhanced data validation on form inputs",
+      "Improved error messages for better user guidance",
     ],
     bugFixes: [
-      'Fixed file upload issues in Chrome browser',
-      'Resolved incorrect totals in financial reports',
-      'Fixed broken links in email notifications',
-      'Corrected date formatting in exported files',
+      "Fixed file upload issues in Chrome browser",
+      "Resolved incorrect totals in financial reports",
+      "Fixed broken links in email notifications",
+      "Corrected date formatting in exported files",
     ],
     breaking: [],
   },
   {
-    version: 'v4.1.0',
-    date: '2024-04-20',
-    type: 'Minor',
-    status: 'stable',
+    version: "v4.1.0",
+    date: "2024-04-20",
+    type: "Minor",
+    status: "stable",
     highlights: [
-      'Multi-language support',
-      'Enhanced security features',
-      'New reporting capabilities',
+      "Multi-language support",
+      "Enhanced security features",
+      "New reporting capabilities",
     ],
     features: [
-      'Multi-language support (English, Spanish, French, German)',
-      'Two-factor authentication',
-      'Custom report builder with visual editor',
-      'Automated backup scheduling',
+      "Multi-language support (English, Spanish, French, German)",
+      "Two-factor authentication",
+      "Custom report builder with visual editor",
+      "Automated backup scheduling",
     ],
     improvements: [
-      'Faster page load times',
-      'Better accessibility compliance (WCAG 2.1 AA)',
-      'Enhanced keyboard navigation',
+      "Faster page load times",
+      "Better accessibility compliance (WCAG 2.1 AA)",
+      "Enhanced keyboard navigation",
     ],
     bugFixes: [
-      'Fixed CSV export encoding issues',
-      'Resolved calendar view rendering problems',
-      'Corrected permission checks for shared resources',
+      "Fixed CSV export encoding issues",
+      "Resolved calendar view rendering problems",
+      "Corrected permission checks for shared resources",
     ],
     breaking: [],
   },
   {
-    version: 'v4.0.8',
-    date: '2024-03-28',
-    type: 'Patch',
-    status: 'stable',
-    highlights: [
-      'Critical security patch',
-      'Performance improvements',
-    ],
+    version: "v4.0.8",
+    date: "2024-03-28",
+    type: "Patch",
+    status: "stable",
+    highlights: ["Critical security patch", "Performance improvements"],
     features: [],
     improvements: [
-      'Improved database query optimization',
-      'Enhanced caching mechanisms',
+      "Improved database query optimization",
+      "Enhanced caching mechanisms",
     ],
     bugFixes: [
-      'Fixed XSS vulnerability in user input fields',
-      'Resolved SQL injection vulnerability',
-      'Fixed session management issues',
+      "Fixed XSS vulnerability in user input fields",
+      "Resolved SQL injection vulnerability",
+      "Fixed session management issues",
     ],
     breaking: [],
   },
@@ -137,28 +145,25 @@ const releases = [
 
 export function ReleaseNotes() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const getBadgeType = (type: string): 'warning' | 'active' | 'inactive' => {
-    if (type === 'Major') return 'warning';
-    if (type === 'Minor') return 'active';
-    return 'inactive';
+  const getBadgeType = (type: string): "warning" | "active" | "inactive" => {
+    if (type === "Major") return "warning";
+    if (type === "Minor") return "active";
+    return "inactive";
   };
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => navigate('/version')}
-        >
+        <Button variant="ghost" size="sm" onClick={() => navigate("/version")}>
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back
+          {t("common.back")}
         </Button>
         <div>
-          <h1 className="text-gray-900">Release Notes</h1>
-          <p className="text-gray-600 mt-1">Complete version history and changelog</p>
+          <h1 className="text-gray-900">{t("releaseNotes.title")}</h1>
+          <p className="text-gray-600 mt-1">{t("releaseNotes.description")}</p>
         </div>
       </div>
 
@@ -171,8 +176,11 @@ export function ReleaseNotes() {
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <CardTitle>{release.version}</CardTitle>
-                    <StatusBadge status={getBadgeType(release.type)} label={release.type} />
-                    {release.status === 'latest' && (
+                    <StatusBadge
+                      status={getBadgeType(release.type)}
+                      label={release.type}
+                    />
+                    {release.status === "latest" && (
                       <StatusBadge status="active" label="Latest" />
                     )}
                   </div>
@@ -225,7 +233,9 @@ export function ReleaseNotes() {
                     <AccordionTrigger>
                       <div className="flex items-center gap-2">
                         <Tag className="w-4 h-4 text-blue-600" />
-                        <span>Improvements ({release.improvements.length})</span>
+                        <span>
+                          Improvements ({release.improvements.length})
+                        </span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
@@ -267,7 +277,9 @@ export function ReleaseNotes() {
                     <AccordionTrigger>
                       <div className="flex items-center gap-2">
                         <Tag className="w-4 h-4 text-red-600" />
-                        <span>Breaking Changes ({release.breaking.length})</span>
+                        <span>
+                          Breaking Changes ({release.breaking.length})
+                        </span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
