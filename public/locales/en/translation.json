@@ -1,0 +1,436 @@
+{
+  "app": {
+    "name": "Pyxis Admin"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "customers": "Customer Management",
+    "database": "Database Management",
+    "version": "Version Control",
+    "licenses": "License Management",
+    "activity_logs": "Activity Logs",
+    "system_settings": "System Settings"
+  },
+  "search": {
+    "placeholder": "Search..."
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "actions": "Actions",
+    "view_details": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "customer": "Customer",
+    "test_connection": "Test Connection",
+    "created_date": "Created Date",
+    "status": "Status",
+    "connections": "Connections",
+    "license_key": "License Key",
+    "start_date": "Start Date",
+    "expiration_date": "Expiration Date",
+    "rows": "rows",
+    "restore": "Restore",
+    "backup": "Backup"
+  },
+  "user": {
+    "default_name": "Admin User",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Pyxis Admin",
+    "subtitle": "Sign in to your dashboard",
+    "email": "Email",
+    "email_placeholder": "you@company.com",
+    "password": "Password",
+    "password_placeholder": "••••••••",
+    "remember": "Remember me",
+    "forgot": "Forgot?",
+    "sign_in": "Sign in",
+    "footer": "© {{year}} Pyxis — Your admin dashboard"
+  },
+  "system": {
+    "title": "System Settings",
+    "description": "Configure system-wide settings and preferences",
+    "tabs": {
+      "general": "General",
+      "email": "Email",
+      "notifications": "Notifications",
+      "security": "Security"
+    },
+    "general_settings": "General Settings",
+    "basic_config": "Basic system configuration",
+    "system_name": "System Name",
+    "system_url": "System URL",
+    "timezone": "Timezone",
+    "default_language": "Default Language",
+    "support_email": "Support Email",
+    "maintenance_mode": "Maintenance Mode",
+    "maintenance_mode_desc": "Temporarily disable system access",
+    "session_settings": "Session Settings",
+    "session_description": "Configure user session parameters",
+    "smtp_configuration": "SMTP Configuration",
+    "smtp_description": "Configure email server settings",
+    "send_test_email": "Send Test Email",
+    "email_templates": "Email Templates",
+    "welcome_template_default": "Welcome to Pyxis Admin! Your account has been created successfully.",
+    "notification_preferences": "Notification Preferences",
+    "security_configuration": "Security Configuration",
+    "save_settings": "Save Settings",
+    "changes_applied": "Changes will be applied immediately after saving",
+    "email_notifications": "Email Notifications"
+  },
+  "version": {
+    "title": "Version Control",
+    "description": "Manage software versions and deployments",
+    "latest_version": "Latest Version",
+    "up_to_date": "Up to Date",
+    "pending_updates": "Pending Updates",
+    "failed_updates": "Failed Updates",
+    "recent_releases": "Recent Releases",
+    "view_all_releases": "View All Releases",
+    "deployment_progress": "Deployment Progress",
+    "customers": "customers",
+    "deploy": "Deploy",
+    "update": "Update",
+    "customer_version_status": "Customer Version Status",
+    "current_version": "Current Version",
+    "update_status": "Update Status",
+    "last_updated": "Last Updated",
+    "actions": "Actions"
+  },
+  "releaseNotes": {
+    "title": "Release Notes",
+    "description": "Complete version history and changelog",
+    "back": "Back",
+    "highlights": "Highlights",
+    "new_features": "New Features",
+    "improvements": "Improvements",
+    "bug_fixes": "Bug Fixes",
+    "breaking_changes": "Breaking Changes",
+    "latest": "Latest"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's what's happening with your system.",
+    "kpi": {
+      "total_customers": "Total Customers",
+      "active_databases": "Active Databases",
+      "current_version": "Current Version",
+      "active_licenses": "Active Licenses"
+    },
+    "charts": {
+      "customer_database_growth": "Customer & Database Growth",
+      "monthly_growth": "Monthly growth over the last 6 months",
+      "license_distribution": "License Distribution",
+      "license_distribution_desc": "Active licenses by plan type",
+      "system_health": "System Health",
+      "system_health_desc": "Resource usage over the last 24 hours",
+      "recent_activity": "Recent Activity",
+      "recent_activity_desc": "Latest system events"
+    }
+  },
+  "customers": {
+    "title": "Customer Management",
+    "description": "Manage your customer accounts and information",
+    "add_customer": "Add Customer",
+    "search_placeholder": "Search by name, ID, or email...",
+    "filter_status_placeholder": "Filter by status",
+    "all_status": "All Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "table": {
+      "name": "Customer Name",
+      "id": "Customer ID",
+      "contact": "Contact Info",
+      "users": "Users",
+      "status": "Status",
+      "created": "Created Date",
+      "actions": "Actions",
+      "edit": "Edit",
+      "all_status": "All Status",
+      "showing": "Showing {{count}} of {{total}} customers",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "create": {
+      "title": "Create New Customer",
+      "description": "Add a new customer account to the system",
+      "business_info": {
+        "title": "Business Information",
+        "description": "Enter the customer's business details"
+      },
+      "form": {
+        "company_name": "Company Name",
+        "company_placeholder": "Acme Corporation",
+        "domain": "Domain",
+        "domain_placeholder": "acme.com",
+        "customer_id": "Customer ID",
+        "auto_generated": "Auto-generated",
+        "contact_name": "Contact Name",
+        "contact_name_placeholder": "John Doe",
+        "email": "Email",
+        "email_placeholder": "john@acme.com",
+        "service_package": "Service Package",
+        "select_package": "Select package",
+        "packages": {
+          "trial": "Trial",
+          "professional": "Professional",
+          "enterprise": "Enterprise"
+        }
+      },
+      "contact": {
+        "title": "Contact Information",
+        "description": "Primary contact details for this customer"
+      },
+      "service": {
+        "title": "Service Configuration",
+        "description": "Configure service settings and limits"
+      },
+      "logo": {
+        "title": "Company Logo",
+        "description": "Upload customer's logo",
+        "click_upload": "Click to upload or drag and drop",
+        "hints": "PNG, JPG up to 2MB"
+      },
+      "status": {
+        "title": "Account Status",
+        "description": "Set the initial account status",
+        "active_label": "Active Status",
+        "enable_desc": "Enable customer account",
+        "current_status": "Current status",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "actions": {
+        "create": "Create Customer"
+      }
+    },
+    "detail": {
+      "id": "Customer ID: {{id}}",
+
+      "business_info": {
+        "title": "Business Information",
+        "description": "Customer details and account information"
+      },
+      "created": "{{date}}",
+      "status": "Status",
+      "service_package": "Service Package",
+      "user_limit": "User Limit",
+      "storage_limit": "Storage Limit",
+      "tabs": {
+        "users": "Users ({{count}})",
+        "activity_logs": "Activity Logs"
+      },
+      "users": {
+        "title": "User Management",
+        "add": "Add User",
+        "description": "Manage users for this customer account"
+      },
+      "activity": {
+        "title": "Activity Logs",
+        "description": "Recent activity for this customer account"
+      }
+    },
+    "activity": {
+      "table": {
+        "action": "Action",
+        "user": "User",
+        "timestamp": "Timestamp",
+        "status": "Status"
+      }
+    }
+  },
+  "activity": {
+    "title": "Activity Logs",
+    "description": "Monitor system activities and user actions",
+    "export_logs": "Export Logs",
+    "stats": {
+      "total_activities": "Total Activities",
+      "successful": "Successful",
+      "failed": "Failed",
+      "today": "Today"
+    },
+    "search_placeholder": "Search by action, user, or resource...",
+    "filters": {
+      "filter_by_type": "Filter by type",
+      "filter_by_status": "Filter by status",
+      "all_types": "All Types",
+      "all_status": "All Status",
+      "success": "Success",
+      "failed": "Failed",
+      "completed": "Completed"
+    },
+    "table": {
+      "timestamp": "Timestamp",
+      "type": "Type",
+      "action": "Action",
+      "user": "User",
+      "resource": "Resource",
+      "status": "Status",
+      "ip": "IP Address",
+      "showing": "Showing {{count}} of {{total}} activities",
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "license": {
+    "title": "License Management",
+    "description": "Manage customer licenses and subscriptions",
+    "create_license": "Create License",
+    "stats": {
+      "total_licenses": "Total Licenses",
+      "active": "Active",
+      "trial": "Trial",
+      "expired": "Expired"
+    },
+    "search_placeholder": "Search by customer, license key, or ID...",
+    "filter_status_placeholder": "Filter by status",
+    "table": {
+      "expiration": "Expiration",
+      "modules": "Modules",
+
+      "renew": "Renew"
+    },
+    "create": {
+      "back": "Back",
+      "title": "Create New License",
+      "description": "Generate a new license for a customer",
+      "customer": {
+        "title": "Customer Information",
+        "description": "Select the customer for this license",
+        "label": "Customer",
+        "placeholder": "Select a customer"
+      },
+      "configuration": {
+        "title": "License Configuration",
+        "description": "Set license parameters and limits",
+        "license_placeholder": "Click generate to create a license key",
+        "generate": "Generate",
+        "plan_type": "Plan Type",
+        "select_plan": "Select plan",
+        "plans": {
+          "trial": "Trial (30 days)",
+          "professional": "Professional",
+          "enterprise": "Enterprise"
+        },
+        "duration": "Duration (months)",
+        "duration_placeholder": "12"
+      },
+      "limits": {
+        "title": "Resource Limits",
+        "description": "Set user and storage limitations",
+        "user_limit": "User Limit",
+        "user_limit_placeholder": "100",
+        "user_limit_help": "Maximum number of users",
+        "storage_limit": "Storage Limit (GB)",
+        "storage_limit_placeholder": "500",
+        "storage_limit_help": "Maximum storage in GB"
+      },
+      "modules": {
+        "title": "Module Selection",
+        "description": "Choose which modules to enable",
+        "required": "Required"
+      },
+      "summary": {
+        "title": "License Summary",
+        "description": "Review before creating",
+        "customer": "Customer",
+        "plan_type": "Plan Type",
+        "selected_modules": "Selected Modules",
+        "module_label": "module",
+        "not_selected": "Not selected",
+        "notice": "The license will be created immediately and the customer will receive a confirmation email."
+      },
+      "actions": {
+        "create": "Create License",
+        "cancel": "Cancel"
+      }
+    },
+    "detail": {
+      "id": "License ID: {{id}}",
+      "edit": "$t(common.edit) License",
+      "renew": "Renew License",
+      "days_remaining": "Days Remaining",
+      "days": "days",
+      "storage": "Storage",
+      "info": {
+        "title": "License Information",
+        "description": "License key and validity details",
+        "plan_type": "Plan Type",
+        "customer_id": "Customer ID"
+      },
+      "expires_soon": "This license will expire in {{days}} days. Consider renewing to avoid service interruption.",
+      "usage": {
+        "title": "Resource Usage",
+        "description": "Current usage against license limits",
+        "user_accounts": "User Accounts",
+        "storage_usage": "Storage Usage",
+        "active_modules": "Active Modules"
+      },
+      "modules": {
+        "title": "Module Activation",
+        "description": "Enable or disable license modules"
+      },
+      "enabled": "Enabled",
+      "history": {
+        "title": "License History",
+        "description": "Changes and modifications to this license"
+      }
+    }
+  },
+  "database": {
+    "title": "Database Management",
+    "description": "Manage customer databases and configurations",
+    "create_database": "Create Database",
+    "stats": {
+      "total_databases": "Total Databases",
+      "active_databases": "Active Databases",
+      "total_size": "Total Size",
+      "connections": "Connections"
+    },
+    "search_placeholder": "Search by database name, customer, or ID...",
+    "table": {
+      "db_name": "Database Name",
+
+      "size": "Size",
+      "last_backup": "Last Backup",
+
+      "restore_backup": "Restore Backup",
+      "create_new_database": "Create New Database",
+      "select_customer": "Select Customer",
+      "choose_customer": "Choose a customer",
+      "auto_generated": "Auto-generated based on customer",
+      "create": "Create Database"
+    },
+    "detail": {
+      "id": "Database ID: {{id}}",
+
+      "backup_now": "Backup Now",
+      "db_size": "Database Size",
+      "version": "Version",
+      "connection": {
+        "title": "Connection Information",
+        "description": "Database connection details",
+        "host": "Host",
+        "port": "Port",
+        "db_name": "Database Name",
+        "connection_string": "Connection String"
+      },
+      "schema": {
+        "title": "Schema Information",
+        "description": "Database tables and sizes"
+      },
+      "storage_trend": {
+        "title": "Storage Usage Trend",
+        "description": "Database size growth over the last 6 months",
+        "size_label": "Size (GB)"
+      },
+      "backup": {
+        "title": "Backup History",
+        "description": "Recent database backups",
+        "size_label": "Size"
+      }
+    }
+  }
+}

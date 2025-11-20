@@ -1,99 +1,131 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Search, Filter, MoreVertical, Eye, Edit, Trash2 } from 'lucide-react';
-import { PageHeader } from '../../components/PageHeader';
-import { StatusBadge } from '../../components/StatusBadge';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Card, CardContent } from '../../components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../components/ui/dropdown-menu';
+/** @format */
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Plus,
+  Search,
+  Filter,
+  MoreVertical,
+  Eye,
+  Edit,
+  Trash2,
+} from "lucide-react";
+import { PageHeader } from "../../components/PageHeader";
+import { useTranslation } from "react-i18next";
+import { StatusBadge } from "../../components/StatusBadge";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Card, CardContent } from "../../components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
 
 const customers = [
   {
-    id: 'CUST-001',
-    name: 'Acme Corporation',
-    contact: 'john.doe@acme.com',
-    phone: '+1 (555) 123-4567',
-    status: 'active' as const,
-    createdDate: '2024-01-15',
+    id: "CUST-001",
+    name: "Acme Corporation",
+    contact: "john.doe@acme.com",
+    phone: "+1 (555) 123-4567",
+    status: "active" as const,
+    createdDate: "2024-01-15",
     userCount: 45,
-    domain: 'acme.com',
+    domain: "acme.com",
   },
   {
-    id: 'CUST-002',
-    name: 'TechStart Inc',
-    contact: 'sarah@techstart.io',
-    phone: '+1 (555) 234-5678',
-    status: 'active' as const,
-    createdDate: '2024-02-20',
+    id: "CUST-002",
+    name: "TechStart Inc",
+    contact: "sarah@techstart.io",
+    phone: "+1 (555) 234-5678",
+    status: "active" as const,
+    createdDate: "2024-02-20",
     userCount: 28,
-    domain: 'techstart.io',
+    domain: "techstart.io",
   },
   {
-    id: 'CUST-003',
-    name: 'DataFlow Ltd',
-    contact: 'contact@dataflow.co',
-    phone: '+1 (555) 345-6789',
-    status: 'inactive' as const,
-    createdDate: '2023-11-10',
+    id: "CUST-003",
+    name: "DataFlow Ltd",
+    contact: "contact@dataflow.co",
+    phone: "+1 (555) 345-6789",
+    status: "inactive" as const,
+    createdDate: "2023-11-10",
     userCount: 12,
-    domain: 'dataflow.co',
+    domain: "dataflow.co",
   },
   {
-    id: 'CUST-004',
-    name: 'CloudSync Inc',
-    contact: 'admin@cloudsync.net',
-    phone: '+1 (555) 456-7890',
-    status: 'active' as const,
-    createdDate: '2024-03-05',
+    id: "CUST-004",
+    name: "CloudSync Inc",
+    contact: "admin@cloudsync.net",
+    phone: "+1 (555) 456-7890",
+    status: "active" as const,
+    createdDate: "2024-03-05",
     userCount: 67,
-    domain: 'cloudsync.net',
+    domain: "cloudsync.net",
   },
   {
-    id: 'CUST-005',
-    name: 'Innovate Co',
-    contact: 'team@innovate.com',
-    phone: '+1 (555) 567-8901',
-    status: 'active' as const,
-    createdDate: '2024-04-12',
+    id: "CUST-005",
+    name: "Innovate Co",
+    contact: "team@innovate.com",
+    phone: "+1 (555) 567-8901",
+    status: "active" as const,
+    createdDate: "2024-04-12",
     userCount: 34,
-    domain: 'innovate.com',
+    domain: "innovate.com",
   },
   {
-    id: 'CUST-006',
-    name: 'SecureNet Systems',
-    contact: 'info@securenet.com',
-    phone: '+1 (555) 678-9012',
-    status: 'inactive' as const,
-    createdDate: '2023-09-28',
+    id: "CUST-006",
+    name: "SecureNet Systems",
+    contact: "info@securenet.com",
+    phone: "+1 (555) 678-9012",
+    status: "inactive" as const,
+    createdDate: "2023-09-28",
     userCount: 8,
-    domain: 'securenet.com',
+    domain: "securenet.com",
   },
 ];
 
 export function CustomerList() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const filteredCustomers = customers.filter((customer) => {
-    const matchesSearch = customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         customer.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         customer.contact.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || customer.status === statusFilter;
+    const matchesSearch =
+      customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer.contact.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || customer.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Customer Management"
-        description="Manage your customer accounts and information"
+        title={t("customers.title")}
+        description={t("customers.description")}
         action={{
-          label: 'Add Customer',
-          onClick: () => navigate('/customers/new'),
+          label: t("customers.add_customer"),
+          onClick: () => navigate("/customers/new"),
           icon: <Plus className="w-4 h-4 mr-2" />,
         }}
       />
@@ -105,7 +137,7 @@ export function CustomerList() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
-                placeholder="Search by name, ID, or email..."
+                placeholder={t("customers.search_placeholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -114,12 +146,16 @@ export function CustomerList() {
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full md:w-48">
                 <Filter className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Filter by status" />
+                <SelectValue
+                  placeholder={t("customers.filter_status_placeholder")}
+                />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
+                <SelectItem value="all">{t("customers.all_status")}</SelectItem>
+                <SelectItem value="active">{t("customers.active")}</SelectItem>
+                <SelectItem value="inactive">
+                  {t("customers.inactive")}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -133,13 +169,15 @@ export function CustomerList() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Customer Name</TableHead>
-                  <TableHead>Customer ID</TableHead>
-                  <TableHead>Contact Info</TableHead>
-                  <TableHead>Users</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Created Date</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t("customers.table.name")}</TableHead>
+                  <TableHead>{t("customers.table.id")}</TableHead>
+                  <TableHead>{t("customers.table.contact")}</TableHead>
+                  <TableHead>{t("customers.table.users")}</TableHead>
+                  <TableHead>{t("common.status")}</TableHead>
+                  <TableHead>{t("customers.table.created")}</TableHead>
+                  <TableHead className="text-right">
+                    {t("common.actions")}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -148,21 +186,33 @@ export function CustomerList() {
                     <TableCell>
                       <div>
                         <p className="text-gray-900">{customer.name}</p>
-                        <p className="text-gray-500 text-sm">{customer.domain}</p>
+                        <p className="text-gray-500 text-sm">
+                          {customer.domain}
+                        </p>
                       </div>
                     </TableCell>
-                    <TableCell className="text-gray-600">{customer.id}</TableCell>
+                    <TableCell className="text-gray-600">
+                      {customer.id}
+                    </TableCell>
                     <TableCell>
                       <div>
-                        <p className="text-gray-900 text-sm">{customer.contact}</p>
-                        <p className="text-gray-500 text-sm">{customer.phone}</p>
+                        <p className="text-gray-900 text-sm">
+                          {customer.contact}
+                        </p>
+                        <p className="text-gray-500 text-sm">
+                          {customer.phone}
+                        </p>
                       </div>
                     </TableCell>
-                    <TableCell className="text-gray-600">{customer.userCount}</TableCell>
+                    <TableCell className="text-gray-600">
+                      {customer.userCount}
+                    </TableCell>
                     <TableCell>
                       <StatusBadge status={customer.status} />
                     </TableCell>
-                    <TableCell className="text-gray-600">{customer.createdDate}</TableCell>
+                    <TableCell className="text-gray-600">
+                      {customer.createdDate}
+                    </TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -171,17 +221,21 @@ export function CustomerList() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => navigate(`/customers/${customer.id}`)}>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              navigate(`/customers/${customer.id}`)
+                            }
+                          >
                             <Eye className="w-4 h-4 mr-2" />
-                            View Details
+                            {t("common.view_details")}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Edit className="w-4 h-4 mr-2" />
-                            Edit
+                            {t("common.edit")}
                           </DropdownMenuItem>
                           <DropdownMenuItem className="text-red-600">
                             <Trash2 className="w-4 h-4 mr-2" />
-                            Delete
+                            {t("common.delete")}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -196,10 +250,19 @@ export function CustomerList() {
 
       {/* Summary */}
       <div className="flex items-center justify-between text-sm text-gray-600">
-        <p>Showing {filteredCustomers.length} of {customers.length} customers</p>
+        <p>
+          {t("customers.table.showing", {
+            count: filteredCustomers.length,
+            total: customers.length,
+          })}
+        </p>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled>Previous</Button>
-          <Button variant="outline" size="sm">Next</Button>
+          <Button variant="outline" size="sm" disabled>
+            {t("customers.table.previous")}
+          </Button>
+          <Button variant="outline" size="sm">
+            {t("customers.table.next")}
+          </Button>
         </div>
       </div>
     </div>
