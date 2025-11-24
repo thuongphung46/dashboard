@@ -24,19 +24,31 @@ import { SystemSettings } from "./pages/SystemSettings";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Login } from "./pages/Login";
 import { JSX } from "react";
+import {
+  DASHBOARD,
+  CUSTOMERS,
+  DATABASE,
+  VERSION,
+  LICENSES,
+  ACTIVITY_LOGS,
+  SETTINGS,
+  LOGIN,
+} from "./config/paths";
+import PageMeta from "./components/PageMeta";
 
 function RequireAuth({ children }: { children: JSX.Element }) {
   const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to={LOGIN} replace />;
   return children;
 }
 
 export default function App() {
   return (
     <Router>
+      <PageMeta />
       <AuthProvider>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path={LOGIN} element={<Login />} />
 
           <Route
             path="/*"
@@ -46,35 +58,53 @@ export default function App() {
                   <Routes>
                     <Route
                       path="/"
-                      element={<Navigate to="/dashboard" replace />}
+                      element={<Navigate to={DASHBOARD} replace />}
                     />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path={DASHBOARD} element={<Dashboard />} />
 
                     {/* Customer Management */}
-                    <Route path="/customers" element={<CustomerList />} />
-                    <Route path="/customers/:id" element={<CustomerDetail />} />
-                    <Route path="/customers/new" element={<CreateCustomer />} />
+                    <Route path={CUSTOMERS} element={<CustomerList />} />
+                    <Route
+                      path={`${CUSTOMERS}/:id`}
+                      element={<CustomerDetail />}
+                    />
+                    <Route
+                      path={`${CUSTOMERS}/new`}
+                      element={<CreateCustomer />}
+                    />
 
                     {/* Database Management */}
-                    <Route path="/database" element={<DatabaseOverview />} />
-                    <Route path="/database/:id" element={<DatabaseDetail />} />
+                    <Route path={DATABASE} element={<DatabaseOverview />} />
+                    <Route
+                      path={`${DATABASE}/:id`}
+                      element={<DatabaseDetail />}
+                    />
 
                     {/* Version Control */}
-                    <Route path="/version" element={<VersionDashboard />} />
-                    <Route path="/version/update" element={<UpdateVersion />} />
+                    <Route path={VERSION} element={<VersionDashboard />} />
                     <Route
-                      path="/version/releases"
+                      path={`${VERSION}/update`}
+                      element={<UpdateVersion />}
+                    />
+                    <Route
+                      path={`${VERSION}/releases`}
                       element={<ReleaseNotes />}
                     />
 
                     {/* License Management */}
-                    <Route path="/licenses" element={<LicenseList />} />
-                    <Route path="/licenses/:id" element={<LicenseDetail />} />
-                    <Route path="/licenses/new" element={<CreateLicense />} />
+                    <Route path={LICENSES} element={<LicenseList />} />
+                    <Route
+                      path={`${LICENSES}/:id`}
+                      element={<LicenseDetail />}
+                    />
+                    <Route
+                      path={`${LICENSES}/new`}
+                      element={<CreateLicense />}
+                    />
 
                     {/* Other */}
-                    <Route path="/activity-logs" element={<ActivityLogs />} />
-                    <Route path="/settings" element={<SystemSettings />} />
+                    <Route path={ACTIVITY_LOGS} element={<ActivityLogs />} />
+                    <Route path={SETTINGS} element={<SystemSettings />} />
                   </Routes>
                 </DashboardLayout>
               </RequireAuth>

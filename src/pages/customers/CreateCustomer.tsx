@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CUSTOMERS } from "../../config/paths";
 import { ArrowLeft, Upload } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../components/ui/button";
@@ -32,18 +33,14 @@ export function CreateCustomer() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    navigate("/customers");
+    navigate(CUSTOMERS);
   };
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => navigate("/customers")}
-        >
+        <Button variant="ghost" size="sm" onClick={() => navigate(CUSTOMERS)}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t("common.back")}
         </Button>
@@ -300,7 +297,7 @@ export function CreateCustomer() {
                   type="button"
                   variant="outline"
                   className="w-full"
-                  onClick={() => navigate("/customers")}
+                  onClick={() => navigate(CUSTOMERS)}
                 >
                   {t("common.cancel")}
                 </Button>

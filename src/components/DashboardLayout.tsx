@@ -20,6 +20,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "../contexts/AuthContext";
+import { DASHBOARD, LOGIN } from "../config/paths";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import {
@@ -33,15 +34,14 @@ interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-const menuItems = (t: (s: string) => string) => [
-  { icon: LayoutDashboard, label: t("menu.dashboard"), path: "/dashboard" },
-  { icon: Users, label: t("menu.customers"), path: "/customers" },
-  { icon: Database, label: t("menu.database"), path: "/database" },
-  { icon: GitBranch, label: t("menu.version"), path: "/version" },
-  { icon: Key, label: t("menu.licenses"), path: "/licenses" },
-  { icon: Activity, label: t("menu.activity_logs"), path: "/activity-logs" },
-  { icon: Settings, label: t("menu.system_settings"), path: "/settings" },
-];
+import pages from "../config/pages";
+
+// Build menu items from central pages config. We only include pages that
+// are intended for authenticated users in the sidebar (auth !== false).
+const menuItems = (t: (s: string) => string) =>
+  pages
+    .filter((p) => p.auth !== false)
+    .map((p) => ({ icon: p.icon, label: t(p.labelKey), path: p.path }));
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
@@ -49,7 +49,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { t } = useTranslation();
 
   const isActive = (path: string) => {
-    if (path === "/dashboard") return location.pathname === path;
+    if (path === DASHBOARD) return location.pathname === path;
     return location.pathname.startsWith(path);
   };
 
@@ -89,7 +89,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <nav className="flex-1 px-4 py-6 overflow-y-auto">
             <ul className="space-y-1">
               {menuItems(t).map((item) => {
-                const Icon = item.icon;
+                const Icon = item.icon as any;
                 const active = isActive(item.path);
 
                 return (
@@ -106,7 +106,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                         }
                       `}
                     >
-                      <Icon className="w-5 h-5 flex-shrink-0" />
+                      {Icon ? (
+                        <Icon className="w-5 h-5 flex-shrink-0" />
+                      ) : (
+                        <span className="w-5 h-5" />
+                      )}
                       <span>{item.label}</span>
                     </Link>
                   </li>
@@ -178,7 +182,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <DropdownMenuItem
                     onSelect={() => {
                       logout();
-                      navigate("/login");
+                      navigate(LOGIN);
                     }}
                   >
                     {t("user.logout")}

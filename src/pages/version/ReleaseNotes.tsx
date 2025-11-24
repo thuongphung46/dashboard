@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { VERSION } from "../../config/paths";
 import { ArrowLeft, ChevronDown, ChevronUp, Calendar, Tag } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../components/ui/button";
@@ -157,7 +158,7 @@ export function ReleaseNotes() {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/version")}>
+        <Button variant="ghost" size="sm" onClick={() => navigate(VERSION)}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t("common.back")}
         </Button>
