@@ -9,7 +9,8 @@
     "version": "Quản lý phiên bản",
     "licenses": "Quản lý giấy phép",
     "activity_logs": "Nhật ký hoạt động",
-    "system_settings": "Cài đặt hệ thống"
+    "system_settings": "Cài đặt hệ thống",
+    "login": "Đăng nhập"
   },
   "search": {
     "placeholder": "Tìm kiếm..."

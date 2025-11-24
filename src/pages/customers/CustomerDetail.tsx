@@ -1,6 +1,7 @@
 /** @format */
 
 import { useParams, useNavigate } from "react-router-dom";
+import { CUSTOMERS } from "../../config/paths";
 import {
   ArrowLeft,
   Mail,
@@ -136,11 +137,7 @@ export function CustomerDetail() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate("/customers")}
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigate(CUSTOMERS)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t("common.back")}
           </Button>

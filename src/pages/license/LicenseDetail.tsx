@@ -1,6 +1,7 @@
 /** @format */
 
 import { useParams, useNavigate } from "react-router-dom";
+import { LICENSES } from "../../config/paths";
 import {
   ArrowLeft,
   Copy,
@@ -119,11 +120,7 @@ export function LicenseDetail() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate("/licenses")}
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigate(LICENSES)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t("license.detail.back")}
           </Button>

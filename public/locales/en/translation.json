@@ -9,7 +9,8 @@
     "version": "Version Control",
     "licenses": "License Management",
     "activity_logs": "Activity Logs",
-    "system_settings": "System Settings"
+    "system_settings": "System Settings",
+    "login": "Login"
   },
   "search": {
     "placeholder": "Search..."

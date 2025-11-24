@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DASHBOARD } from "../config/paths";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useAuth } from "../contexts/AuthContext";
@@ -20,7 +21,7 @@ export function Login() {
     setError(null);
     try {
       await login(email, password);
-      navigate("/dashboard");
+      navigate(DASHBOARD);
     } catch (err: any) {
       setError(err?.message || "Login failed");
     }

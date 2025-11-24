@@ -1,6 +1,7 @@
 /** @format */
 
 import { useParams, useNavigate } from "react-router-dom";
+import { DATABASE } from "../../config/paths";
 import {
   ArrowLeft,
   Database,
@@ -111,11 +112,7 @@ export function DatabaseDetail() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate("/database")}
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigate(DATABASE)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t("common.back")}
           </Button>
