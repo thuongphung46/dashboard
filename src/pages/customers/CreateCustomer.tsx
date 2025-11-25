@@ -24,16 +24,64 @@ import {
 } from "../../components/ui/select";
 import { Switch } from "../../components/ui/switch";
 import { Textarea } from "../../components/ui/textarea";
+import { CustomerService } from "../../services/customersService";
+import { CreateCustomerRequest } from "../../types/requests";
 
 export function CreateCustomer() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(true);
   const { t } = useTranslation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // form state (minimal fields used for create)
+  const [companyName, setCompanyName] = useState("");
+  const [domain, setDomain] = useState("");
+  const [customerId, setCustomerId] = useState("");
+  const [address, setAddress] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [alternateEmail, setAlternateEmail] = useState("");
+  const [servicePackage, setServicePackage] = useState<
+    "trial" | "professional" | "enterprise" | string
+  >("trial");
+  const [userLimit, setUserLimit] = useState<number | "">("");
+  const [storageLimit, setStorageLimit] = useState<number | "">("");
+  const [databaseLimit, setDatabaseLimit] = useState<number | "">("");
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    navigate(CUSTOMERS);
+    setSubmitting(true);
+    try {
+      const payload: CreateCustomerRequest = {
+        companyName,
+        domain,
+        customerId: customerId || undefined,
+        address,
+        contactName,
+        contactEmail,
+        phone: phone || undefined,
+        alternateEmail: alternateEmail || undefined,
+        servicePackage,
+        userLimit: userLimit === "" ? undefined : Number(userLimit),
+        storageLimit: storageLimit === "" ? undefined : Number(storageLimit),
+        databaseLimit: databaseLimit === "" ? undefined : Number(databaseLimit),
+        isActive,
+      };
+      const result = await CustomerService.Create(payload);
+      console.log("Customer created", result);
+
+      // lazy import to avoid circular issues
+      // const svc = await import("../../services/customersService");
+      // await svc.createCustomer(payload);
+      // navigate(CUSTOMERS);
+    } catch (err) {
+      console.error("Create customer failed", err);
+      // TODO: show toast/error to user
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,6 +122,9 @@ export function CreateCustomer() {
                     </Label>
                     <Input
                       id="companyName"
+                      name="companyName"
+                      value={companyName}
+                      onChange={(ev) => setCompanyName(ev.target.value)}
                       placeholder={t(
                         "customers.create.form.company_placeholder"
                       )}
@@ -87,6 +138,9 @@ export function CreateCustomer() {
                     </Label>
                     <Input
                       id="domain"
+                      name="domain"
+                      value={domain}
+                      onChange={(ev) => setDomain(ev.target.value)}
                       placeholder={t(
                         "customers.create.form.domain_placeholder"
                       )}
@@ -100,8 +154,12 @@ export function CreateCustomer() {
                     </Label>
                     <Input
                       id="customerId"
-                      placeholder={t("customers.create.form.auto_generated")}
-                      disabled
+                      name="customerId"
+                      value={customerId}
+                      // placeholder={t("customers.create.form.auto_generated")}
+                      placeholder={"apzon"}
+                      onChange={(ev) => setCustomerId(ev.target.value)}
+                      // disabled
                     />
                   </div>
 
@@ -109,6 +167,9 @@ export function CreateCustomer() {
                     <Label htmlFor="address">Address</Label>
                     <Textarea
                       id="address"
+                      name="address"
+                      value={address}
+                      onChange={(ev) => setAddress(ev.target.value)}
                       placeholder="123 Business Street, San Francisco, CA"
                       rows={3}
                     />
@@ -133,6 +194,9 @@ export function CreateCustomer() {
                     </Label>
                     <Input
                       id="contactName"
+                      name="contactName"
+                      value={contactName}
+                      onChange={(ev) => setContactName(ev.target.value)}
                       placeholder={t(
                         "customers.create.form.contact_name_placeholder"
                       )}
@@ -146,7 +210,10 @@ export function CreateCustomer() {
                     </Label>
                     <Input
                       id="contactEmail"
+                      name="contactEmail"
                       type="email"
+                      value={contactEmail}
+                      onChange={(ev) => setContactEmail(ev.target.value)}
                       placeholder={t("customers.create.form.email_placeholder")}
                       required
                     />
@@ -154,14 +221,23 @@ export function CreateCustomer() {
 
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" placeholder="+1 (555) 123-4567" />
+                    <Input
+                      id="phone"
+                      name="phone"
+                      value={phone}
+                      onChange={(ev) => setPhone(ev.target.value)}
+                      placeholder="+1 (555) 123-4567"
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="alternateEmail">Alternate Email</Label>
                     <Input
                       id="alternateEmail"
+                      name="alternateEmail"
                       type="email"
+                      value={alternateEmail}
+                      onChange={(ev) => setAlternateEmail(ev.target.value)}
                       placeholder="support@acme.com"
                     />
                   </div>
@@ -183,7 +259,10 @@ export function CreateCustomer() {
                     <Label htmlFor="servicePackage">
                       {t("customers.create.form.service_package")} *
                     </Label>
-                    <Select required>
+                    <Select
+                      value={servicePackage}
+                      onValueChange={(v: string) => setServicePackage(v)}
+                    >
                       <SelectTrigger id="servicePackage">
                         <SelectValue
                           placeholder={t(
@@ -207,17 +286,50 @@ export function CreateCustomer() {
 
                   <div className="space-y-2">
                     <Label htmlFor="userLimit">User Limit</Label>
-                    <Input id="userLimit" type="number" placeholder="100" />
+                    <Input
+                      id="userLimit"
+                      name="userLimit"
+                      type="number"
+                      value={userLimit}
+                      onChange={(ev) =>
+                        setUserLimit(
+                          ev.target.value === "" ? "" : Number(ev.target.value)
+                        )
+                      }
+                      placeholder="100"
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="storageLimit">Storage Limit (GB)</Label>
-                    <Input id="storageLimit" type="number" placeholder="500" />
+                    <Input
+                      id="storageLimit"
+                      name="storageLimit"
+                      type="number"
+                      value={storageLimit}
+                      onChange={(ev) =>
+                        setStorageLimit(
+                          ev.target.value === "" ? "" : Number(ev.target.value)
+                        )
+                      }
+                      placeholder="500"
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="databaseLimit">Database Limit</Label>
-                    <Input id="databaseLimit" type="number" placeholder="5" />
+                    <Input
+                      id="databaseLimit"
+                      name="databaseLimit"
+                      type="number"
+                      value={databaseLimit}
+                      onChange={(ev) =>
+                        setDatabaseLimit(
+                          ev.target.value === "" ? "" : Number(ev.target.value)
+                        )
+                      }
+                      placeholder="5"
+                    />
                   </div>
                 </div>
               </CardContent>
