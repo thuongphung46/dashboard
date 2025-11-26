@@ -11,6 +11,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { CustomerList } from "./pages/customers/CustomerList";
 import { CustomerDetail } from "./pages/customers/CustomerDetail";
 import { CreateCustomer } from "./pages/customers/CreateCustomer";
+import { EditCustomer } from "./pages/customers/EditCustomer";
 import { DatabaseOverview } from "./pages/database/DatabaseOverview";
 import { DatabaseDetail } from "./pages/database/DatabaseDetail";
 import { VersionDashboard } from "./pages/version/VersionDashboard";
@@ -67,6 +68,10 @@ export default function App() {
                     <Route
                       path={`${CUSTOMERS}/:id`}
                       element={<CustomerDetail />}
+                    />
+                    <Route
+                      path={`${CUSTOMERS}/:id/edit`}
+                      element={<EditCustomer />}
                     />
                     <Route
                       path={`${CUSTOMERS}/new`}

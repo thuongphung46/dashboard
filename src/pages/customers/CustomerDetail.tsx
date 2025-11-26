@@ -42,21 +42,24 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "../../components/ui/avatar";
+import React, { useEffect } from "react";
+import { ICustomer } from "../../types/requests";
+import { CustomerService } from "../../services/customersService";
 
-const customerData = {
-  id: "CUST-001",
-  name: "Acme Corporation",
-  domain: "acme.com",
-  logo: "https://api.dicebear.com/7.x/initials/svg?seed=AC",
-  contact: "john.doe@acme.com",
-  phone: "+1 (555) 123-4567",
-  status: "active" as const,
-  createdDate: "2024-01-15",
-  address: "123 Business Street, San Francisco, CA 94102",
-  servicePackage: "Enterprise",
-  userLimit: 100,
-  storageLimit: "500 GB",
-};
+// const customerData = {
+//   id: "CUST-001",
+//   name: "Acme Corporation",
+//   domain: "acme.com",
+//   logo: "https://api.dicebear.com/7.x/initials/svg?seed=AC",
+//   contact: "john.doe@acme.com",
+//   phone: "+1 (555) 123-4567",
+//   status: "active" as const,
+//   createdDate: "2024-01-15",
+//   address: "123 Business Street, San Francisco, CA 94102",
+//   servicePackage: "Enterprise",
+//   userLimit: 100,
+//   storageLimit: "500 GB",
+// };
 
 const users = [
   {
@@ -129,8 +132,20 @@ const activityLogs = [
 
 export function CustomerDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [customer, setCustomer] = React.useState<ICustomer | null>(null);
+  const fetchDetail = async (customerId: string) => {
+    try {
+      const data = await CustomerService.GetById(customerId);
+      setCustomer(data);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    if (id) {
+      fetchDetail(id);
+    }
+  }, [id]);
 
   return (
     <div className="p-6 space-y-6">
@@ -142,9 +157,9 @@ export function CustomerDetail() {
             {t("common.back")}
           </Button>
           <div>
-            <h1 className="text-gray-900">{customerData.name}</h1>
+            <h1 className="text-gray-900">{customer?.companyName}</h1>
             <p className="text-gray-600 mt-1">
-              {t("customers.detail.id", { id: customerData.id })}
+              {t("customers.detail.id", { id: customer?.customerId })}
             </p>
           </div>
         </div>
@@ -175,29 +190,29 @@ export function CustomerDetail() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start gap-4">
               <Avatar className="w-16 h-16">
-                <AvatarImage src={customerData.logo} />
+                <AvatarImage src={customer?.logoUrl} />
                 <AvatarFallback>AC</AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <p className="text-gray-900 mb-4">{customerData.name}</p>
+                <p className="text-gray-900 mb-4">{customer?.companyName}</p>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Mail className="w-4 h-4" />
-                    <span className="text-sm">{customerData.contact}</span>
+                    <span className="text-sm">{customer?.contactEmail}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Phone className="w-4 h-4" />
-                    <span className="text-sm">{customerData.phone}</span>
+                    <span className="text-sm">{customer?.phone}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Globe className="w-4 h-4" />
-                    <span className="text-sm">{customerData.domain}</span>
+                    <span className="text-sm">{customer?.domain}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Calendar className="w-4 h-4" />
                     <span className="text-sm">
                       {t("customers.detail.created", {
-                        date: customerData.createdDate,
+                        date: customer?.createdDate,
                       })}
                     </span>
                   </div>
@@ -208,14 +223,16 @@ export function CustomerDetail() {
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <span className="text-gray-600">{t("common.status")}</span>
-                <StatusBadge status={customerData.status} />
+                <StatusBadge
+                  status={customer?.isActive ? "active" : "inactive"}
+                />
               </div>
               <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <span className="text-gray-600">
                   {t("customers.detail.service_package")}
                 </span>
                 <span className="text-gray-900">
-                  {customerData.servicePackage}
+                  {customer?.servicePackage}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
@@ -223,16 +240,14 @@ export function CustomerDetail() {
                   {t("customers.detail.user_limit")}
                 </span>
                 <span className="text-gray-900">
-                  {users.length} / {customerData.userLimit}
+                  {users.length} / {customer?.userLimit}
                 </span>
               </div>
               <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <span className="text-gray-600">
                   {t("customers.detail.storage_limit")}
                 </span>
-                <span className="text-gray-900">
-                  {customerData.storageLimit}
-                </span>
+                <span className="text-gray-900">{customer?.storageLimit}</span>
               </div>
             </div>
           </div>

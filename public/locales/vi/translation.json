@@ -32,7 +32,9 @@
     "expiration_date": "Ngày hết hạn",
     "rows": "dòng",
     "restore": "Khôi phục",
-    "backup": "Sao lưu"
+    "backup": "Sao lưu",
+    "confirm_delete": "Bạn có chắc chắn muốn xóa mục này không?",
+    "save": "Lưu"
   },
   "user": {
     "default_name": "Người quản trị",
@@ -152,7 +154,10 @@
       "delete": "Xóa",
       "showing": "Hiển thị {{count}} trong {{total}} khách hàng",
       "previous": "Trước",
-      "next": "Tiếp"
+      "next": "Tiếp",
+      "email": "Email",
+      "role": "Vai trò",
+      "last_active": "Hoạt động lần cuối"
     },
     "create": {
       "title": "Tạo khách hàng mới",
@@ -206,6 +211,10 @@
       "actions": {
         "create": "Tạo khách hàng"
       }
+    },
+    "edit": {
+      "title": "Chỉnh sửa khách hàng",
+      "description": "Cập nhật thông tin tài khoản khách hàng"
     },
     "detail": {
       "id": "Mã khách hàng: {{id}}",

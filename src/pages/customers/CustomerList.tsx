@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Plus,
@@ -32,91 +32,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../components/ui/dropdown-menu";
+import { CustomerService } from "../../services/customersService";
+import { ICustomer } from "../../types/requests";
 
-const customers = [
-  {
-    id: "CUST-001",
-    name: "Acme Corporation",
-    contact: "john.doe@acme.com",
-    phone: "+1 (555) 123-4567",
-    status: "active" as const,
-    createdDate: "2024-01-15",
-    userCount: 45,
-    domain: "acme.com",
-  },
-  {
-    id: "CUST-002",
-    name: "TechStart Inc",
-    contact: "sarah@techstart.io",
-    phone: "+1 (555) 234-5678",
-    status: "active" as const,
-    createdDate: "2024-02-20",
-    userCount: 28,
-    domain: "techstart.io",
-  },
-  {
-    id: "CUST-003",
-    name: "DataFlow Ltd",
-    contact: "contact@dataflow.co",
-    phone: "+1 (555) 345-6789",
-    status: "inactive" as const,
-    createdDate: "2023-11-10",
-    userCount: 12,
-    domain: "dataflow.co",
-  },
-  {
-    id: "CUST-004",
-    name: "CloudSync Inc",
-    contact: "admin@cloudsync.net",
-    phone: "+1 (555) 456-7890",
-    status: "active" as const,
-    createdDate: "2024-03-05",
-    userCount: 67,
-    domain: "cloudsync.net",
-  },
-  {
-    id: "CUST-005",
-    name: "Innovate Co",
-    contact: "team@innovate.com",
-    phone: "+1 (555) 567-8901",
-    status: "active" as const,
-    createdDate: "2024-04-12",
-    userCount: 34,
-    domain: "innovate.com",
-  },
-  {
-    id: "CUST-006",
-    name: "SecureNet Systems",
-    contact: "info@securenet.com",
-    phone: "+1 (555) 678-9012",
-    status: "inactive" as const,
-    createdDate: "2023-09-28",
-    userCount: 8,
-    domain: "securenet.com",
-  },
-];
+// Local state will hold server-provided customers
 
 export function CustomerList() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [customers, setCustomers] = useState<ICustomer[]>([]);
 
-  const filteredCustomers = customers.filter((customer) => {
+  const filteredCustomers = customers?.filter((customer) => {
     const matchesSearch =
-      customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      customer.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      customer.contact.toLowerCase().includes(searchQuery.toLowerCase());
+      customer.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (customer.customerId ?? "")
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      customer.contactName.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus =
-      statusFilter === "all" || customer.status === statusFilter;
+      statusFilter === "all" ||
+      customer.isActive === (statusFilter === "active");
+
     return matchesSearch && matchesStatus;
   });
+  const fetchCustomers = async () => {
+    const data = await CustomerService.Get();
+    setCustomers(data);
+  };
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
   return (
     <div className="p-6 space-y-6">
@@ -181,64 +128,69 @@ export function CustomerList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredCustomers.map((customer) => (
-                  <TableRow key={customer.id}>
+                {filteredCustomers.map((i) => (
+                  <TableRow key={i.customerId}>
                     <TableCell>
                       <div>
-                        <p className="text-gray-900">{customer.name}</p>
-                        <p className="text-gray-500 text-sm">
-                          {customer.domain}
-                        </p>
+                        <p className="text-gray-900">{i.companyName}</p>
+                        <p className="text-gray-500 text-sm">{i.domain}</p>
                       </div>
                     </TableCell>
                     <TableCell className="text-gray-600">
-                      {customer.id}
+                      <Link
+                        to={`/customers/${i.id}`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {i.customerId}
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <div>
                         <p className="text-gray-900 text-sm">
-                          {customer.contact}
+                          {i.contactEmail}
                         </p>
-                        <p className="text-gray-500 text-sm">
-                          {customer.phone}
-                        </p>
+                        <p className="text-gray-500 text-sm">{i.phone}</p>
                       </div>
                     </TableCell>
                     <TableCell className="text-gray-600">
-                      {customer.userCount}
+                      {i.contactName}
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={customer.status} />
+                      <StatusBadge
+                        status={i.isActive ? "active" : "inactive"}
+                      />
                     </TableCell>
                     <TableCell className="text-gray-600">
-                      {customer.createdDate}
+                      {i.createdDate}
                     </TableCell>
                     <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <MoreVertical className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            onClick={() =>
-                              navigate(`/customers/${customer.id}`)
+                      <div className="flex items-center justify-end">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => navigate(`/customers/${i.id}/edit`)}
+                          title={t("common.edit")}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-600"
+                          onClick={async () => {
+                            if (confirm(t("common.confirm_delete")) && i.id) {
+                              await CustomerService.Delete(i.id);
+                              setCustomers((prev) =>
+                                prev.filter((customer) => customer.id !== i.id)
+                              );
                             }
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            {t("common.view_details")}
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Edit className="w-4 h-4 mr-2" />
-                            {t("common.edit")}
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-600">
-                            <Trash2 className="w-4 h-4 mr-2" />
-                            {t("common.delete")}
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                          }}
+                          title={t("common.delete")}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -32,7 +32,9 @@
     "expiration_date": "Expiration Date",
     "rows": "rows",
     "restore": "Restore",
-    "backup": "Backup"
+    "backup": "Backup",
+    "confirm_delete": "Are you sure you want to delete this item?",
+    "save": "Save"
   },
   "user": {
     "default_name": "Admin User",
@@ -152,7 +154,10 @@
       "all_status": "All Status",
       "showing": "Showing {{count}} of {{total}} customers",
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "email": "Email",
+      "role": "Role",
+      "last_active": "Last Active"
     },
     "create": {
       "title": "Create New Customer",
@@ -206,6 +211,10 @@
       "actions": {
         "create": "Create Customer"
       }
+    },
+    "edit": {
+      "title": "Edit Customer",
+      "description": "Update customer account information"
     },
     "detail": {
       "id": "Customer ID: {{id}}",

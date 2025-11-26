@@ -12,16 +12,6 @@ export interface DayResponse {
   code: string;
 }
 
-// Example generic: extend/compose other entities from here as needed
-export interface CustomerResponse {
-  id: string;
-  name: string;
-  contact?: string;
-  users?: number;
-  status?: string;
-  created?: string; // ISO date string
-}
-
 export interface LicenseResponse {
   id: string;
   license_key: string;

@@ -1,18 +1,14 @@
 /**
- * Request payload interfaces for API calls (POST/PUT)
+ * Payload to create a new customer
  *
  * @format
  */
 
-/** Payload to create a new customer */
-export interface CreateCustomerRequest {
-  /** Company / business name */
+export interface ICustomer {
+  id?: number;
   companyName: string;
-  /** Primary domain for customer (e.g. acme.com) */
   domain: string;
-  /** Optional client-provided customer id (usually server-generated) */
   customerId?: string;
-  /** Postal address */
   address?: string;
 
   /* Contact */
@@ -29,7 +25,6 @@ export interface CreateCustomerRequest {
 
   /* Status / meta */
   isActive?: boolean;
-  logoUrl?: string; // optional uploaded logo URL
+  logoUrl?: string;
+  createdDate?: string;
 }
-
-export default {};

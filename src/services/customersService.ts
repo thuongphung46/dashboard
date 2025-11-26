@@ -1,33 +1,23 @@
 /** @format */
 
 import { post, get, put, del } from "./baseService";
-import type { CreateCustomerRequest } from "../types/requests";
+import type { ICustomer } from "../types/requests";
 
 const Controller = "/customers";
 export const CustomerService = {
-  Create: async (
-    payload: CreateCustomerRequest
-  ): Promise<CreateCustomerRequest> => {
-    return post<CreateCustomerRequest, CreateCustomerRequest>(
-      Controller,
-      payload
-    );
+  Create: async (payload: ICustomer): Promise<ICustomer> => {
+    return post<ICustomer, ICustomer>(Controller, payload);
   },
-  Get: async (id: string): Promise<CreateCustomerRequest> => {
-    return get<CreateCustomerRequest>(`${Controller}`);
+  Get: async (): Promise<ICustomer[]> => {
+    return get<ICustomer[]>(`${Controller}`);
   },
-  GetById: async (id: string): Promise<CreateCustomerRequest> => {
-    return get<CreateCustomerRequest>(`${Controller}/${id}`);
+  GetById: async (id: string): Promise<ICustomer> => {
+    return get<ICustomer>(`${Controller}/${id}`);
   },
-  Update: async (
-    payload: Partial<CreateCustomerRequest>
-  ): Promise<CreateCustomerRequest> => {
-    return put<CreateCustomerRequest, Partial<CreateCustomerRequest>>(
-      `${Controller}`,
-      payload
-    );
+  Update: async (payload: Partial<ICustomer>): Promise<ICustomer> => {
+    return put<ICustomer, Partial<ICustomer>>(`${Controller}`, payload);
   },
-  Delete: async (id: string): Promise<void> => {
+  Delete: async (id: number): Promise<void> => {
     return del<void>(`${Controller}/${id}`);
   },
 };
